@@ -1,5 +1,7 @@
 <template>
   <div class="home">
+
+    123
     <van-swipe :autoplay="2500" :height=300>
       <van-swipe-item>
         <img src="@/assets/index/banner.png" class="banner-img" @click.prevent="jumpDetail"/>
