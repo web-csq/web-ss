@@ -34,17 +34,17 @@
     <h4 class="sub-title">老师示范 &nbsp; 学员跟练</h4>
 
     <div class="subbox">
-      <div style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="showPopup">
-        <img src="@/assets/index/go1.png" alt="">
-        <h4>爱享训练</h4>
-        <p>认识自己，把握自 己，爱自己</p>
-      </div>
-      <div style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="showMiddle">
+        <div class="wow bounceInDown" data-wow-delay="0.2s" style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="showPopup">
+          <img src="@/assets/index/go1.png" alt="">
+          <h4>爱享训练</h4>
+          <p>认识自己，把握自 己，爱自己</p>
+        </div>
+      <div class="wow bounceInDown" data-wow-delay="0.5s" style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="showMiddle">
         <img src="@/assets/index/go2.png" alt="">
         <h4>动感强化训练</h4>
         <p>睡服她，让她欲罢 不能</p>
       </div>
-      <div style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="jumpStudy">
+      <div class="wow bounceInDown" data-wow-delay="0.8s" style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="jumpStudy">
         <img src="@/assets/index/go3.png" alt="">
         <h4>情侣双休训练</h4>
         <p>解锁性爱的高阶玩法</p>
@@ -56,11 +56,16 @@
 
 
     <h2 class="title">应用训练</h2>
-    <img src="@/assets/index/floor1.png" alt="" class="img" @click="jumpStudy">
+    <div class="wow bounceInLeft" data-wow-delay="0.3s">
+      <img src="@/assets/index/floor1.png" alt="" class="img" @click="jumpStudy">
+    </div>
+    
 
     <h2 class="title">拔高训练</h2>
-    <img src="@/assets/index/floor2.png" alt="" class="img" @click="showAnswer">
-
+    <div class="wow bounceInRight" data-wow-delay="0.6s">
+       <img src="@/assets/index/floor2.png" alt="" class="img" @click="showAnswer">
+    </div>
+   
     <div class="bottom">
       提升魅力，重新定义品质生活
     </div>
@@ -293,6 +298,7 @@
 
 <script>
 import { setTimeout } from 'timers';
+import { WOW } from 'wowjs'
 export default {
   data(){
     return{
@@ -408,13 +414,21 @@ export default {
         that.anshow4=false;
         this.$router.push('/fackback')
       }
-
-
-      
+ 
     },
     jumpPaySuccess(){
       this.$router.push('/paysuccess')
-    }
+    },
+ 
+  },
+  mounted() {
+    var wow =new WOW({
+      boxClass:"wow",
+      live:false,
+      offset:0,
+      moblie:true
+    })
+    wow.init()
   },
 }
 </script>
@@ -644,7 +658,7 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
-  transform:translate3d(-120px,-400px,0) scale(.5)
+  transform:translate3d(-120px,-500px,0) scale(.5)
 }
 
 

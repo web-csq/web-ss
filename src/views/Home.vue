@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    111
+  <div class="home" v-if="show">
+
     <van-swipe :autoplay="2500" :height=300>
       <van-swipe-item>
         <img src="@/assets/index/banner.png" class="banner-img" @click.prevent="jumpDetail"/>
@@ -109,19 +109,31 @@
 
 
 <script>
+import { setTimeout } from 'timers';
 // @ is an alias to /src
 
 export default {
   name: 'home',
   data(){
     return{
-     
+      show:false
     }
   },
   methods:{
     jumpDetail(){
       this.$router.push('/articledetail')
+    },
+    get(){
+      var that=this
+      var load=this.$loading();
+      setTimeout(()=>{
+        load.close()
+        that.show=true
+      },2000)
     }
+  },
+  created() {
+    this.get()
   },
   components: {
    

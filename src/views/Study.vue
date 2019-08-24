@@ -40,7 +40,10 @@
             line-width="4rem"
         >
             <van-tab title="圈友好评" name="a">
-            <div class="parent">
+            <div ref="wrapper">
+
+            
+            <div class="parent" >
                 <div class="wrap">
                     <div style="display:flex;align-items:center">
                         <img src="@/assets/index/banner.png" >
@@ -95,6 +98,7 @@
                         上了体魄私教训练馆之后我对嗳嗳的理解更加系统科学，嗳嗳应该是一个阳光化的，而不是传统那些认为嗳嗳是不干净的话题。 那些说西方嗳嗳开放的，大概是不了解西方嗳嗳文化，婚前多尝试，婚后很忠诚，不像我们国家，婚前一片空，婚后乱哄哄。所以路漫漫，还需要很多人一起努力让嗳嗳阳光化。
                     </div>
                 </div>
+            </div>
             </div>
 
 
@@ -155,6 +159,9 @@
 </template>
 
 <script>
+import Scroll from 'better-scroll'
+
+
 export default {
     data(){
         return{
@@ -207,11 +214,6 @@ export default {
             })
             
             
-        },
-        getAudio(){
-            var audio=this.$refs.audio;
-            
-        
         },
         onChange(value){
             var that=this
@@ -271,10 +273,19 @@ export default {
                 return
             }
             this.$toast.success('提交成功');
+        },
+        setScroll(){
+            var that=this
+            this.$nextTick(()=>{
+                that.scroll=new Scroll(that.$refs.wrapper,{
+                    tap:true
+                })
+            })
+            console.log(Scroll)
         }
     },
     mounted(){
-        this.getAudio()
+        this.setScroll()
     }
 
 }
@@ -498,7 +509,7 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
-  transform:translate3d(-120px,-400px,0) scale(.5)
+  transform:translate3d(-120px,-500px,0) scale(.5)
 }
 
 </style>

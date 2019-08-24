@@ -46,14 +46,12 @@ export default {
 .title{
   font-size:1.3rem;
   letter-spacing: 0.2rem;
-  font-family:SourceHanSansCN-Medium;
   font-weight:bold;
   color:rgba(51,51,51,1);
   padding: 1rem 1rem 0.5rem 1rem;
 }
 .sub-title{
   font-size:1rem;
-  font-family:SourceHanSansCN-Normal;
   font-weight:400;
   color:rgba(154,147,147,1);
   padding:0 0 0 1rem;
