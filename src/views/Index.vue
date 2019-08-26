@@ -4,6 +4,7 @@
       <img src="@/assets/index/person.png" alt="" style="width:100vw">
     </mu-ripple>
     <div class="box-index">
+
       <div class="box-line">
         <img src="@/assets/index/go2.png" alt="">
         <div>
@@ -419,7 +420,17 @@ export default {
     jumpPaySuccess(){
       this.$router.push('/paysuccess')
     },
+    getData(){
+      let that=this;
+      var data={
+        uid:3
+      }
+      that.$get('http://rh.boxinid.com/api/product').then((res)=>console.log(res))
+    }
  
+  },
+  created () {
+    this.getData()
   },
   mounted() {
     var wow =new WOW({

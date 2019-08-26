@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import * as request from './request'
 import store from './store'
 Vue.config.productionTip = false
 
 import 'muse-ui/lib/styles/base.less';
 import { Progress } from 'muse-ui';
 import 'muse-ui/lib/styles/theme.less';
-
 Vue.use(Progress);
+
 
 import 'wowjs/css/libs/animate.css'
 
@@ -19,13 +20,9 @@ import 'wowjs/css/libs/animate.css'
 
 
 import Helpers from 'muse-ui/lib/Helpers';
-
 Vue.use(Helpers);
-
 import Loading from 'muse-ui-loading';
-
 import 'muse-ui-loading/dist/muse-ui-loading.css';
-
 Vue.use(Loading,{
   overlayColor: 'rgba(0,0,0,0.8)',     // 背景色
   size: 50,
@@ -33,25 +30,6 @@ Vue.use(Loading,{
   text:"加载中...",
   className:"loading"
 })
-
-
-import BScroll from 'better-scroll'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -71,11 +49,6 @@ import { Swipe,
    Cell, CellGroup
 } from 'vant';
 import 'vant/lib/index.css';
-
-
-
-
-
 Vue.use(Swipe).use(SwipeItem)
 .use(Tab).use(Tabs)
 .use(Popup)
@@ -94,6 +67,8 @@ Vue.use(Lazyload,{
 
 
 
+
+
 router.beforeEach((to, from, next) => {
   if(to.meta.title){
     document.title=to.meta.title
@@ -105,45 +80,11 @@ router.beforeEach((to, from, next) => {
 })
 
 
-import Axios from 'axios'
-import QS from 'qs'
-var axios=Axios.create({
-  baseURL:"",
-  timeout:5000,
-  headers:{
-    "Content-Type":"application/x-www-form-urledcoded;charset=UTF-8"
-  }
-})
 
 
-Vue.prototype.$http=axios
-Vue.prototype.$qs=QS
+Vue.prototype.$get=request.get
+Vue.prototype.$post=request.post
 
-//axios请求拦截
-axios.interceptors.request.use(
-  config=>{
-
-
-
-      return config
-  },
-  error=>{
-
-
-
-
-      return Promise.error(error)
-  }
-)
-
-axios.interceptors.response.use(
-  response=>{
-      return Promise.resolve(response.data)
-  },
-  error=>{
-      return Promise.reject(error.response)
-  }
-)
 
 
 
