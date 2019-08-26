@@ -40,10 +40,8 @@
             line-width="4rem"
         >
             <van-tab title="圈友好评" name="a">
-            <div ref="wrapper">
-
-            
-            <div class="parent" >
+            <div class="parent"  ref="wrapper">
+            <div style="padding-top:1rem">
                 <div class="wrap">
                     <div style="display:flex;align-items:center">
                         <img src="@/assets/index/banner.png" >
@@ -342,6 +340,9 @@ export default {
     flex-direction: column;
     border-bottom: 1px solid #ccc;
     padding-bottom:1rem; 
+}
+.wrap:first-child{
+     margin: 0rem auto 1rem;
 }
 .wrap img{
     width: 2rem;
