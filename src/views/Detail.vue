@@ -8,7 +8,9 @@
             line-height="2px"
         >
             <van-tab title="项目简介">
-                <div class="box-home" style="padding:1rem;box-sizing:border-box;display:block;height: 80vh;overflow-y: auto;">
+                
+                <div ref="wrap" class="box-home" style="padding:1rem;box-sizing:border-box;display:block;height: 80vh;overflow-y: auto;">
+                    <div >
                     <div class="title-1">
                         情趣浸泡馆      
                     </div>
@@ -78,7 +80,7 @@
                     <p>
                         也可以作为替代爱爱的方式，在不适合爱爱的特殊时期使用让男生达到高巢。
                     </p>
-
+                    </div>
                 </div>
 
 
@@ -189,6 +191,8 @@
 
 
 <script>
+
+import Scroll from 'better-scroll'
 export default {
     data(){
         return{
@@ -205,7 +209,18 @@ export default {
         },
         jumpPaySuccess(){
             this.$router.push('/paysuccess')
+        },
+        setScroll(){
+           var that=this
+           that.$nextTick(()=>{
+               that.scroll=new Scroll(that.$refs.wrap,{
+                   tap:true
+               })
+           })
         }
+    },
+    mounted () {
+        this.setScroll()
     }
 }
 </script>

@@ -279,7 +279,7 @@ export default {
                     tap:true
                 })
             })
-            console.log(Scroll)
+           
         }
     },
     mounted(){
