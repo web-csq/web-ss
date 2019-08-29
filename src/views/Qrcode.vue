@@ -63,6 +63,7 @@ export default {
             this.show=false
         },
         copy(){
+            let a=1;
             var that=this
             let clipboard = new Clipboard('.share-btn') 
             clipboard.on('success',e =>{
