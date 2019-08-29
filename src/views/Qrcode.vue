@@ -33,12 +33,13 @@
         <div class="floor2" style="margin-top: 1rem;">
             <span>方式二</span>
             <span style="margin-left:1rem">复制以下链接，转发推广：</span>
-            <button class="share-btn">
+            <button class="share-btn" @click="copy" :data-clipboard-text="text">
                 复制链接
             </button>
         </div>
-        <div class="floor3">
-            http://www.shanshang.com/share/erweima
+        <div class="floor3" id="msg">
+            {{text}}
+           <!-- <textarea type="hidden" ref="text" v-model="text" style="opacity: 0;" readonly="readonly"></textarea> -->
         </div>
         </van-popup>
     </div>
@@ -46,10 +47,12 @@
 
 
 <script>
+  import Clipboard from 'clipboard'
 export default {
     data(){
         return{
-            show:false
+            show:false,
+            text:"http://www.shanshang.com/share/erweima"
         }
     },
     methods:{
@@ -58,8 +61,24 @@ export default {
         },
         hide(){
             this.show=false
+        },
+        copy(){
+            var that=this
+            let clipboard = new Clipboard('.share-btn') 
+            clipboard.on('success',e =>{
+                that.$toast.success("复制成功")
+                that.show=false;
+                clipboard.destroy() //使用destroy可以清楚缓存
+            })
+            clipboard.on('error',e =>{
+                that.$toast.fail("网络繁忙")
+                clipboard.destroy()
+            })
+            
         }
+          
     }
+    
 }
 </script>
 
