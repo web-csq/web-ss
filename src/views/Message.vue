@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="box-index" style="padding:1rem;width:82vw">
+        <div class="box-index" style="padding:1rem;width:82vw" v-for="(item,index) in list" :key="index">
             <div class="box-title">
                 <img src="@/assets/center/lvling.png" alt="">
                 <div>
@@ -8,64 +8,16 @@
                 </div>
             </div>
             <div class="content">
-                恭喜您，成为【善商大家族】的推广员，推广成功可赚佣金。推广越多，赚钱越快，赶紧去推广赚钱吧！！！    
+                {{item.msg}} 
+                <img src="../assets/center/money.png" class="img">   
+                <img src="../assets/center/money.png" class="img">   
+                <img src="../assets/center/money.png" class="img">   
             </div>
             <div class="footer">
                 <div>
-                    2 小时前
+                    {{item.addtime1}}
                 </div>
                 <button @click="jumpPush">去赚钱</button>
-            </div>
-        </div>
-        <div class="box-index" style="padding:1rem;width:82vw">
-            <div class="box-title">
-                <img src="@/assets/center/lvling.png" alt="">
-                <div>
-                    推广员系统消息
-                </div>
-            </div>
-            <div class="content">
-                恭喜您，成为【善商大家族】的推广员，推广成功可赚佣金。推广越多，赚钱越快，赶紧去推广赚钱吧！！！    
-            </div>
-            <div class="footer">
-                <div>
-                    2 小时前
-                </div>
-                <button>去赚钱</button>
-            </div>
-        </div>
-        <div class="box-index" style="padding:1rem;width:82vw">
-            <div class="box-title">
-                <img src="@/assets/center/lvling.png" alt="">
-                <div>
-                    推广员系统消息
-                </div>
-            </div>
-            <div class="content">
-                恭喜您，成为【善商大家族】的推广员，推广成功可赚佣金。推广越多，赚钱越快，赶紧去推广赚钱吧！！！    
-            </div>
-            <div class="footer">
-                <div>
-                    2 小时前
-                </div>
-                <button>去赚钱</button>
-            </div>
-        </div>
-        <div class="box-index" style="padding:1rem;width:82vw">
-            <div class="box-title">
-                <img src="@/assets/center/lvling.png" alt="">
-                <div>
-                    推广员系统消息
-                </div>
-            </div>
-            <div class="content">
-                恭喜您，成为【善商大家族】的推广员，推广成功可赚佣金。推广越多，赚钱越快，赶紧去推广赚钱吧！！！    
-            </div>
-            <div class="footer">
-                <div>
-                    2 小时前
-                </div>
-                <button>去赚钱</button>
             </div>
         </div>
     </div>
@@ -75,14 +27,28 @@
 export default {
     data(){
         return{
-
+            list:[],
+            msg:""
         }
     },
     methods:{
         jumpPush(){
             this.$router.push('/push')
+        },
+        getData(){
+            let that=this;
+            that.$post('/message',{
+                uid:window.localStorage.uid
+            }).then(res=>{
+                console.log(res)
+                that.list=res.data
+
+            })
         }
-    }
+    },
+    created() {
+        this.getData()
+    },
 }
 </script>
 
@@ -135,5 +101,9 @@ export default {
 }
 .box-index:last-child{
     margin-bottom: 1rem;
+}
+.img{
+    width: 1.5rem;
+    height: 1.5rem;
 }
 </style>

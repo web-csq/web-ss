@@ -1,15 +1,9 @@
 <template>
   <div class="home" v-if="show">
 
-    <van-swipe :autoplay="2500" :height=300>
-      <van-swipe-item>
-        <img src="@/assets/index/banner.png" class="banner-img" @click.prevent="jumpDetail"/>
-      </van-swipe-item>
-      <van-swipe-item>
-        <img src="@/assets/index/banner.png" class="banner-img" @click.prevent="jumpDetail"/>
-      </van-swipe-item>
-      <van-swipe-item>
-        <img src="@/assets/index/banner.png" class="banner-img" @click.prevent="jumpDetail"/>
+    <van-swipe :autoplay="2500" :height=250>
+      <van-swipe-item v-for="item in bannerList" :key="item.id">
+        <img v-lazy="'http://www.shanshangdajiazu.com'+item.img" class="banner-img" @click.prevent="jumpDetail(item.id)"/>
       </van-swipe-item>
     </van-swipe>
 
@@ -20,78 +14,12 @@
       line-height="2px"
       animated
       >
-        <van-tab title="精品干货" >
-          <div class="box-home" @click="jumpDetail" style="justify-content:space-between;">
+        <van-tab v-for="item in articleList" :key="item.id" :title="item.sort_name">
+          <div class="box-home" v-for="items in item.list" :key="items.id" @click="jumpDetail(items.id)" style="justify-content:space-between;">
               <div>
-                娱乐圈里哪些声音好听到爆的 “低 娱乐圈里哪些声音好听到爆的 “低 音炮”，是怎么练声的？
+               {{items.title}}
               </div>
-              <img src="@/assets/index/touxiang.png" style="margin-right:.5rem;">
-          </div>
-          <div class="box-home" @click="jumpDetail">
-              <div>
-                “大爷腔” 是什么，为什么有人喜 欢有人却讨厌？
-              </div>
-              <img src="@/assets/index/touxiang2.png">
-          </div>
-          <div class="box-home" @click="jumpDetail">
-              <div>
-                娱乐圈里哪些声音好听到爆的 “低 音炮”，是怎么练声的？
-              </div>
-              <img src="@/assets/index/touxiang.png">
-          </div>
-          <div class="box-home" @click="jumpDetail">
-              <div>
-                娱乐圈里哪些声音好听到爆的 “低 音炮”，是怎么练声的？
-              </div>
-              <img src="@/assets/index/touxiang.png">
-          </div>
-        </van-tab>
-        <van-tab title="训练作品" >
-          <div class="box-home">
-              <div>
-                娱乐圈里哪些声音好听到爆的 “低 音炮”，是怎么练声的？
-              </div>
-              <img src="@/assets/index/touxiang.png">
-          </div>
-        </van-tab>
-        <van-tab title="声音特色" >
-          <div class="box-home">
-              <div>
-                娱乐圈里哪些声音好听到爆的 “低 音炮”，是怎么练声的？
-              </div>
-              <img src="@/assets/index/touxiang.png">
-          </div>
-        </van-tab>
-        <van-tab title="时时推荐" >
-          <div class="box-home">
-              <div>
-                娱乐圈里哪些声音好听到爆的 “低 音炮”，是怎么练声的？
-              </div>
-              <img src="@/assets/index/touxiang.png">
-          </div>
-        </van-tab>
-        <van-tab title="时时1" >
-          <div class="box-home">
-              <div>
-                娱乐圈里哪些声音好听到爆的 “低 音炮”，是怎么练声的？
-              </div>
-              <img src="@/assets/index/touxiang.png">
-          </div>
-        </van-tab>
-        <van-tab title="时时2" >
-          <div class="box-home">
-              <div>
-                娱乐圈里哪些声音好听到爆的 “低 音炮”，是怎么练声的？
-              </div>
-              <img src="@/assets/index/touxiang.png">
-          </div>
-        </van-tab>
-        <van-tab title="时时3" >
-          <div class="box-home">
-              <div>
-                娱乐圈里哪些声音好听到爆的 “低 音炮”，是怎么练声的？
-              </div>
-              <img src="@/assets/index/touxiang.png">
+              <img v-lazy="'http://www.shanshangdajiazu.com'+items.img" style="margin-right:.5rem;">
           </div>
         </van-tab>
       </van-tabs>
@@ -116,24 +44,44 @@ export default {
   name: 'home',
   data(){
     return{
-      show:false
+      bannerList:[],
+      articleList:[],
+      show:false,
+      load:""
     }
   },
   methods:{
-    jumpDetail(){
-      this.$router.push('/articledetail')
+    jumpDetail(id){
+      console.log(id)
+      this.$router.push('/articledetail/'+id)
     },
-    get(){
+    getBanner(){
       var that=this
-      var load=this.$loading();
-      setTimeout(()=>{
-        load.close()
-        that.show=true
-      },2000)
+      that.$get('/banner').then(res=>{
+        that.bannerList=res.data
+         console.log(that.bannerList)
+      })
+      that.$get('/articleSort').then(res=>{
+        that.articleList=res.data
+        console.log(that.articleList)
+        setTimeout(()=>{
+          // that.load.close()
+          that.show=true
+        },500)
+        
+      })
+
+      // var load=this.$loading();
+      // setTimeout(()=>{
+      //   load.close()
+      //   
+      // },2000)
+      
     }
   },
   created() {
-    this.get()
+    // this.load=this.$loading()
+    this.getBanner()
   },
   components: {
    
@@ -178,6 +126,7 @@ export default {
   width: 100vw;
   display: block;
   border-radius:8px; 
+  height: 100%;
 }
 .van-tabs >>> .van-tabs__line{
   background-color: #6898FB!important;

@@ -1,108 +1,53 @@
 <template>
-    <div>
-        <div style="width:100vw;overflow:hidden">
-            <img src="@/assets/center/bg_detail.png" alt="" style="width:100vw;transform:scale(1.1)">
-        </div>
-        
-        <van-tabs v-model="active"
-            line-height="2px"
-        >
-            <van-tab title="项目简介">
+    <div class="container" style="overflow:hidden;" v-if="page">
+        <!-- <mu-ripple color="#2196f3" :opacity="0.2" style="width:100vw;height:90vh"> -->
+         <img src="@/assets/center/bg_detail.png" alt="" style="width:100vw;height:90vh">
+        <!-- </mu-ripple> -->
+        <van-sticky>
+            <div style="display:flex;justify-content:space-around;background:#fff;height:3rem;line-height:3rem;font-size:1rem; letter-spacing:.1rem;">
+                <span :style="position==='id1'?'border-bottom:3px solid #FFE181':''" @click="top('id1')">
+                    项目介绍
+                </span>
+                <span :style="position==='id2'?'border-bottom:3px solid #FFE181':''"  @click="top('id2')">
+                    适合人群
+                </span>
+                <span :style="position==='id3'?'border-bottom:3px solid #FFE181':''"  @click="top('id3')">
+                    圈友指南
+                </span>
+            </div>
+
+        </van-sticky>
                 
-                <div ref="wrap" class="box-home" style="padding:1rem;box-sizing:border-box;display:block;height: 80vh;overflow-y: auto;">
+
+
+
+
+        
+                    
+
+                    <div id="id1" ></div>
+                    <div style="width:100vw;height:3rem;"></div>
                     <div >
-                    <div class="title-1">
-                        情趣浸泡馆      
+                        <img src="@/assets/center/intr.png" alt="" class="dao">
                     </div>
-                    <div class="title-2">
-                        酮体按摩操 
+                    
+              
+
+                
+
+          
+                    
+                    <div id="id2"  ref='id2'></div>
+                    <div style="width:100vw;height:3rem;"></div>
+                    <div >
+                        <img src="@/assets/center/person.png" alt="" class="dao">
                     </div>
-                    <p style="margin-top:.2rem">
-                        帮助另一半放松身心，增强彼此的亲密感。
-                    </p>
-                    <p>
-                        新手如何循序渐进地按摩。  正确的按摩次序是怎样的。 
-                    </p>
-                    <p>
-                        用这套按摩操给对方按摩之后，对方都会忍不住要扑倒你，恨不得跟你合二为一。
-                    </p>
-                    <div class="title-2" style="margin-top:1rem">
-                        唇舌漫游
-                    </div>
-                    <p>
-                        如何灵活运用唇舌，让她全身冒欲火。
-                    </p><p>
-                        身体不同位置最适合什么样的刺激。
-                    </p><p>
-                        练好嘴上功夫，吻到她欲罢不能。
-                    </p><p>
-                        灵活的唇舌不单是吻技的基础，还有更多的你意想不到的作用。  
-                    </p>
-                    <div class="title-2" style="margin-top:1rem">
-                       乳房按摩操
-                    </div>
-                    <p>科学用手和唇舌按摩乳房，存进乳房充血，让胸部和乳头更加敏感。                
-                    </p><p>如何运用自己丁丁的特点，撩拨她的身体。
-                    </p><p>找对敏感点，撩到她全身起火。
-                    </p><p>
-                        乳房按摩操给前戏增加更多乐趣，引导全身性唤醒。 
-                    </p>
-                    <div class="title-2" style="margin-top:1rem">
-                       豆豆按摩操 
-                    </div>
-                    <p>科学按摩豆豆、G 点和 U 点，加快女性性唤起，给前戏增加更多乐趣。
-                    </p><p>用手指攻破她的性冷淡。</p><p>
-                    如何把豆豆按摩操变成完整的性爱大餐。
-                    </p><p>前戏做的好，女生湿的早。豆豆按摩操让女生在前戏中获得高巢，让女生在正戏时更容易高巢。  
-                    </p>
-                    <div class="title-2" style="margin-top:1rem"> 
-                      男子口爱   
-                    </div>
-                    <p>科学使用唇舌给豆豆带来花式快感，加快女性性唤起，给前戏增加更多乐趣。
-                    </p><p>掌握高巢原理，探索她的多重高巢。
-                    </p><p>也可以最为替代爱爱的方式，在不适合爱爱的特殊时期使用让女生达到高巢。
-                    </p>
-                    <div class="title-2" style="margin-top:1rem">
-                      丁丁保健操精华版
-                    </div>
-                    <p>涉及 “推、拉、按、捏、握” 等多方面，细致地展示每一个手法。
-                    </p><p>
-                    学会丁丁按摩操，你就可以给他一场无与伦比的手爱，一举胜过他前 20 年的撸法。
-                    </p><p>
-                        经期孕期安抚小男神的绝杀技。
-                    </p>
-                    <div class="title-2" style="margin-top:1rem">
-                        女子口爱
-                    </div>
-                    <p>
-                        科学使用唇舌给丁丁带来花式快感，提升充血程度，给前戏增加更多乐趣，让对方享受前所未有的 “口活儿”。
-                    </p>
-                    <p>
-                        也可以作为替代爱爱的方式，在不适合爱爱的特殊时期使用让男生达到高巢。
-                    </p>
-                    </div>
-                </div>
+                    
+              
 
-
-
-
-
-
-            <div style="width:100vw;height:4rem;"></div>
-            </van-tab>
-            <van-tab title="适合人群">
-                <img src="@/assets/center/person.png" alt="" style="width:100vw;height:85vh">
-
-
-
-
-
-
-
-            <div style="width:100vw;height:3rem;"></div>
-            </van-tab>
-            <van-tab title="圈友指南">
-                <div class="box-home" style="padding:1rem;box-sizing:border-box;display:block">
+            
+           
+                <!-- <div class="box-home" style="padding:1rem;box-sizing:border-box;display:block">
                     <h4>
                         本计划的学习地点在线上社群内，付款后将获得学习委员的微信号，请添加入群。
                     </h4>
@@ -136,25 +81,30 @@
                     <h5>
                         A：会为您自动顺延。比如您报名时是第 61 位，那么你就 是下一期的第一位成功锁定席位的学员啦。
                     </h5>
+                </div> -->
+                   
+                    <div id="id3" ref='id3'></div>
+                     <div style="width:100vw;height:3rem;"></div>
+                    <div >
+                        <img src="@/assets/center/dao.png" alt="" class="dao">
+                    </div>
+                    <div style="width:100vw;height:5rem;"></div>
+                    
+              
 
 
 
-
-
-
-                </div>
                 
 
-            <div style="width:100vw;height:12vh;"></div>
-            </van-tab>
-        </van-tabs>
+            
+      
 
 
 
         
         <div class="bottom-div">
             <button class="bottom-btn" @click="showPopup">
-                ￥3998 元立即开通
+                ￥{{Math.abs(info.price)}} 元立即开通
             </button>
         </div>
 
@@ -163,7 +113,7 @@
         v-model="show"
         round
         position="bottom"
-        :style="{ height: '23%' }"
+        :style="{ height: '18%' }"
         >
         <div style="height:100%;background: #fff;">
 
@@ -171,15 +121,15 @@
                 <div>请选择支付方式</div>
                 <img src="@/assets/index/hide.png" @click="hide">
             </div>
-            <div class="weixin" @click="jumpPaySuccess">
+            <div class="weixin" @click="wxPay">
                 <img src="@/assets/index/weixin.png" alt="">
                 <span>微信支付</span>
             </div>
-            <div class="ali">
+            <div class="ali" @click="aliPay">
                 <img src="@/assets/index/ali.png" alt="">
                 <span>支付宝支付</span>
             </div>
-            <div style="height:1.4rem;background: #fff;"></div>
+            
         </div>
         </van-popup>
 
@@ -192,12 +142,16 @@
 
 <script>
 
-import Scroll from 'better-scroll'
+// import Scroll from 'better-scroll'
 export default {
     data(){
         return{
+            info:{},
             active:"",
             show:false,
+            position:"id1",
+            scroll:"",
+            page:false
         }
     },
     methods:{
@@ -210,17 +164,59 @@ export default {
         jumpPaySuccess(){
             this.$router.push('/paysuccess')
         },
-        setScroll(){
-           var that=this
-           that.$nextTick(()=>{
-               that.scroll=new Scroll(that.$refs.wrap,{
-                   tap:true
-               })
-           })
+        top(id){
+            this.position=id
+           document.getElementById(id).scrollIntoView()
+        },
+        handleScroll(e){
+
+            let a = document.documentElement.scrollTop || document.body.scrollTop;
+            
+            if(a<2103){
+                this.position='id1'
+            }
+            if(a>2110){
+                this.position='id2'
+            }
+            if(a>2700){
+                this.position='id3'
+            }
+
+        },
+        getData(){
+            let that=this;
+            that.$get('/five').then((res)=>{
+                console.log(res)
+                that.info=res.data;
+                setTimeout(()=>{
+                    that.page=true
+                },500)
+            })
+        },
+        wxPay(){
+            let that=this;
+            let data={
+                uid:window.localStorage.uid,
+                price:that.info.price,
+                type:"WeChat"
+            }
+            that.$pay('/buy_courses',data,that) 
+        },
+        aliPay(){
+            // let money=this.info.price
+            // let str=`?uid=${window.localStorage.uid}&price=${money}&type=Alipay`
+
+            // window.location.href='http://www.shanshangdajiazu.com/pay/index.html'+str
         }
     },
+    created() {
+        this.getData()
+        this.$config()
+    },
     mounted () {
-        this.setScroll()
+
+        window.addEventListener('scroll', this.handleScroll)
+       
     }
 }
 </script>
@@ -235,6 +231,7 @@ export default {
 .van-tabs >>> [class*=van-hairline]::after{
     border: 0!important;
     border-bottom: 1px solid #ccc!important;
+   
 }
 .bottom-div{
   width: 100vw;
@@ -243,7 +240,8 @@ export default {
   padding:0.5rem 0;
   position:fixed;
   bottom:0;
-  left:0
+  left:0;
+  z-index: 100;
 }
 .bottom-btn{
   display: block;
@@ -344,7 +342,19 @@ export default {
   color:rgba(92,92,92,1);
   letter-spacing: 0.1rem;
 }
+.dao{
+    width: 96vw;
+    display: block;
+    margin: 0 auto;
+}
 .van-tabs >>> .van-tab__pane{
     height: 90vh!important;
 }
+.container >>> .mu-ripple-wrapper{
+    height: 91%!important;
+}
+
+
+
+
 </style>

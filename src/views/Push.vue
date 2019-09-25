@@ -1,53 +1,34 @@
 <template>
     <div>
         <h2 class="title">推广员等级</h2>
-        <div class="box-index" style="width:90vw;">
+        <div class="box-index" style="width:90vw;" v-for="(item,index) in level" :key="index">
             <div style="display:flex;align-items:center">
                 <img src="@/assets/center/laba.png" alt="" class="laba">
-                <span class="level">健身达人</span>
+                <span class="level">{{item.level_name}}</span>
             </div>
             <div class="push">
-                直接推广佣金比例：30%，间接推广比例：10%
+                直接推广佣金比例：{{item.direct}}%，间接推广比例：{{item.indirect}}%
             </div>
             <div class="bottom">
                 用户成为推广员时，默认是该等级
             </div>
         </div>
-        <div class="box-index" style="width:90vw;">
-            <div style="display:flex;align-items:center">
-                <img src="@/assets/center/laba.png" alt="" class="laba">
-                <span class="level">健身使者</span>
-            </div>
-            <div class="push">
-                直接推广佣金比例：50%，间接推广比例：20%
-            </div>
-            <div class="bottom">
-                累计推广客户 5 人
-            </div>
-            <div class="bottom">
-                累计邀请推广员 1 人
-            </div>
-            <div class="bottom">
-                累计推广金额 200 元
-            </div>
-        </div>
+
         <div style="display:flex;padding:1rem;margin:.5rem">
             <img src="@/assets/center/huangshu.png" alt="" style="height:1.5rem">
             <div class="text-title">推广课程</div>
         </div>
-        <div class="box-index" style="width:90vw;display:flex;justify-content:space-between;margin-top:.5rem;">
-            <img src="@/assets/index/touxiang.png" alt="" class="ava">
+        <div class="box-index" style="width:90vw;display:flex;justify-content:space-between;margin-top:.5rem;" v-for="(item,index) in push" :key="item.id">
+            <img v-lazy="'http://www.shanshangdajiazu.com'+item.img" alt="" class="ava">
             <div style="width:54vw;display:flex;justify-content:space-between;">
                 <div>
-                    <div class="text1">嘟嘟导师：动感化训练</div>
-                    <div class="text2">课程：￥1999.00</div>
-                    <div class="text3">直接推广佣金：<span style="color:#FF494A">￥25.50</span> </div>
-                    <div class="text4">间接推广佣金：<span style="color:#FF494A">￥10.20</span> </div>
+                    <div class="text1">{{item.c_name}}</div>
+                    <div class="text2">{{item.l_id==1?"课程：":"整套价格："}}{{item.money}}</div>
                 </div>
                 <div class="text5" @click="jumpQrcode">推广</div>
             </div>
         </div>
-        <div class="box-index" style="width:90vw;display:flex;justify-content:space-between;">
+      <!--   <div class="box-index" style="width:90vw;display:flex;justify-content:space-between;">
             <img src="@/assets/index/touxiang.png" alt="" class="ava">
             <div style="width:54vw;display:flex;justify-content:space-between;">
                 <div>
@@ -94,7 +75,7 @@
                 </div>
                 <div class="text5">推广</div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -102,14 +83,31 @@
 export default {
     data(){
         return{
-
+            push:"",
+            level:"",
+            load:""
         }
     },
     methods:{
         jumpQrcode(){
-            this.$router.push('/qrcode')
+            this.$router.push('/qrcode?uid='+window.localStorage.uid)
+        },
+        getData(){
+            let that=this;
+            that.$get('/shove').then(res=>{
+                console.log(res)
+                that.push=res.data.courses;
+                that.level=res.data.level;
+                setTimeout(()=>{
+                    // that.load.close()
+                },500)
+            })
         }
-    }
+    },
+    created() {
+        // this.load=this.$loading()
+        this.getData()
+    },
 }
 </script>
 
@@ -150,18 +148,21 @@ export default {
 .ava{
     width: 7rem;
     height: 5rem;
+    border-radius: 8px;
 }
 .text1{
-    font-size:.8rem;
+    font-size:1rem;
     font-family:SourceHanSansCN-Regular;
     font-weight:400;
     color:rgba(51,51,51,1);
+    
 }
 .text2{
-    font-size:.6rem;
+    font-size:.9rem;
     font-family:SourceHanSansCN-Regular;
     font-weight:400;
     color:rgba(157,157,157,1);
+    margin: 1rem 0 0 0;
 }
 .text3{
     margin-top: .5rem;
@@ -202,5 +203,9 @@ export default {
     height: 1.5rem;
     padding: 0 1rem;
     align-self: flex-end;
+}
+
+.box-index:last-child{
+    margin-bottom: 2rem;
 }
 </style>

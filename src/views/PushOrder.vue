@@ -1,84 +1,12 @@
 <template>
     <div>
-        <div class="box-home" style="padding:.5rem;box-sizing:border-box;box-shadow:0 0 5px #99AEDF;">
+        <div class="box-home" style="padding:.5rem;box-sizing:border-box;box-shadow:0 0 5px #99AEDF;" v-for="(item,index) in list" :key="index">
             <img src="@/assets/index/touxiang.png" alt="" class="img">
             <div class="you">
-                <div>嘟嘟导师：动感化训练</div>
-                <div>课程：￥1999.00</div>
-                <div>购买人：天王地热</div>
-                <div>购买时间：2019-07-02</div>
-            </div>
-        </div>
-        <div class="box-home" style="padding:.5rem;box-sizing:border-box;box-shadow:0 0 5px #99AEDF;">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="you">
-                <div>嘟嘟导师：动感化训练</div>
-                <div>课程：￥1999.00</div>
-                <div>购买人：天王地热</div>
-                <div>购买时间：2019-07-02</div>
-            </div>
-        </div>
-        <div class="box-home" style="padding:.5rem;box-sizing:border-box;box-shadow:0 0 5px #99AEDF;">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="you">
-                <div>嘟嘟导师：动感化训练</div>
-                <div>课程：￥1999.00</div>
-                <div>购买人：天王地热</div>
-                <div>购买时间：2019-07-02</div>
-            </div>
-        </div>
-        <div class="box-home" style="padding:.5rem;box-sizing:border-box;box-shadow:0 0 5px #99AEDF;">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="you">
-                <div>嘟嘟导师：动感化训练</div>
-                <div>课程：￥1999.00</div>
-                <div>购买人：天王地热</div>
-                <div>购买时间：2019-07-02</div>
-            </div>
-        </div>
-        <div class="box-home" style="padding:.5rem;box-sizing:border-box;box-shadow:0 0 5px #99AEDF;">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="you">
-                <div>嘟嘟导师：动感化训练</div>
-                <div>课程：￥1999.00</div>
-                <div>购买人：天王地热</div>
-                <div>购买时间：2019-07-02</div>
-            </div>
-        </div>
-        <div class="box-home" style="padding:.5rem;box-sizing:border-box;box-shadow:0 0 5px #99AEDF;">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="you">
-                <div>嘟嘟导师：动感化训练</div>
-                <div>课程：￥1999.00</div>
-                <div>购买人：天王地热</div>
-                <div>购买时间：2019-07-02</div>
-            </div>
-        </div>
-        <div class="box-home" style="padding:.5rem;box-sizing:border-box;box-shadow:0 0 5px #99AEDF;">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="you">
-                <div>嘟嘟导师：动感化训练</div>
-                <div>课程：￥1999.00</div>
-                <div>购买人：天王地热</div>
-                <div>购买时间：2019-07-02</div>
-            </div>
-        </div>
-        <div class="box-home" style="padding:.5rem;box-sizing:border-box;box-shadow:0 0 5px #99AEDF;">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="you">
-                <div>嘟嘟导师：动感化训练</div>
-                <div>课程：￥1999.00</div>
-                <div>购买人：天王地热</div>
-                <div>购买时间：2019-07-02</div>
-            </div>
-        </div>
-        <div class="box-home" style="padding:.5rem;box-sizing:border-box;box-shadow:0 0 5px #99AEDF;">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="you">
-                <div>嘟嘟导师：动感化训练</div>
-                <div>课程：￥1999.00</div>
-                <div>购买人：天王地热</div>
-                <div>购买时间：2019-07-02</div>
+                <div>{{item.title}}</div>
+                <div>课程：￥{{item.title}}</div>
+                <div>购买人：{{item.buy_name}}</div>
+                <div>购买时间：{{item.paytime}}</div>
             </div>
         </div>
     </div>
@@ -88,9 +16,25 @@
 export default {
     data(){
         return{
-
+            list:[]
         }
-    }
+    },
+    methods:{
+        getData(){
+            let that=this;
+            that.$post('/ally_details',{
+                uid:8||window.localStorage.uid,
+                type:3
+            }).then(res=>{
+                that.list=res.data
+
+                console.log(res)
+            })
+        }
+    },
+    created() {
+        this.getData()
+    },
 }
 </script>
 
@@ -98,7 +42,7 @@ export default {
 <style scoped>
 .img{
     width: 7rem;
-    height: 5rem;
+    height: 5.5rem;
 }
 .you{
     margin-left:1rem;

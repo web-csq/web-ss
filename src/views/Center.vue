@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="index">
         <div class="bg">
-            <img src="@/assets/index/touxiang.png" alt="">
-            <div class="name">熟悉的酱酱君少</div>
-            <div class="level">健身达人</div>
+            <img v-lazy="info.imgUrl" alt="">
+            <div class="name">{{info.nickname}}</div>
+            <div class="level" v-if="info.levelname">{{info.levelname}}</div>
         </div>
         <div class="box-index" style="padding:1rem;width:85vw;">
             <div @click="jumpMyTake">
@@ -35,6 +35,17 @@
                 </van-row>
             </div>
         </div>
+        <!-- 提示 -->
+    <van-popup v-model="middleShow" transition="fade">
+      <div style="position:relative;top:0;left:0;width:64vw;">
+        <div style="background:transparent;height:2rem;"> 
+          <img src="@/assets/index/del.png" style="width:1.8rem;height:1.8rem;float:right;" @click="hide">
+        </div>
+        <img src="@/assets/index/tip.png" alt="" style="width:75%;margin:0 auto;display:block;" @click="showPopup(2)">
+      </div>
+    </van-popup>
+    <!-- 支付 -->
+    
     </div>
 </template>
 
@@ -42,16 +53,53 @@
 export default {
     data(){
         return{
-
+            info:{},
+            middleShow:false,
+            show:false,
+            load:""
         }
     },
     methods:{
         jumpMyTake(){
+            if(this.info.level<2){
+                this.middleShow=true
+                return;
+            }
+
             this.$router.push('/mytake')
         },
         jumpCircle(){
+            if(this.info.level<2){
+                this.middleShow=true
+                return;
+            }
             this.$router.push('/circle')
-        }
+        },
+        getData(){
+            let that=this;
+            that.$post('/refresh',{uid:window.localStorage.uid}).then(res=>{
+                console.log(res)
+                that.info=res.data;
+                setTimeout(()=>{
+                    // that.load.close()
+                },500)
+            })
+        },
+        hide(){
+            this.middleShow=false;
+            this.show=false
+        },
+        showPopup(type){
+
+            this.$router.push('/index')
+
+        },
+        
+    },
+    created () {
+        // this.load=this.$loading()
+        // this.$config()
+        this.getData()
     }
 }
 </script>
@@ -113,5 +161,56 @@ export default {
     width: 0.6rem;
     height: 1.2rem;
     margin-top: 0.2rem;
+}
+
+.pop{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background: #fff;
+}
+.pop div{
+  font-size:1rem;
+  font-family:SourceHanSansCN-Medium;
+  font-weight:500;
+  color:rgba(0,0,0,1);
+  line-height: 2rem;
+  
+}
+.pop img{
+  position: absolute;
+  right: 1rem;
+  top:0.7rem;
+  width: 0.8rem;
+  height: 0.8rem;
+}
+.weixin,.ali{
+  display: flex;
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  background: #fff;
+}
+.weixin img{
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.ali img{
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.ali span,.weixin span{
+  padding-left: 1.5rem;
+  font-size:1rem;
+  font-family:SourceHanSansCN-Regular;
+  font-weight:400;
+  color:rgba(92,92,92,1);
+  letter-spacing: 0.1rem;
+  
+}
+.index >>> .van-popup{
+    background-color: transparent;
 }
 </style>

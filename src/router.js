@@ -26,7 +26,7 @@ export default new Router({
       name: 'author',
       meta:{
         keepAlive:true,
-        title:"善商"
+        title:"善商大家族"
       },
       component: ()=>import('./views/author/Author')
     },
@@ -40,7 +40,7 @@ export default new Router({
       component: () => import('./views/Index')
     },
     {
-      path: '/articledetail',
+      path: '/articledetail/:id',
       name: 'articledetail',
       meta:{
         keepAlive:false,
@@ -52,7 +52,7 @@ export default new Router({
       path: '/study',
       name: 'study',
       meta:{
-        keepAlive:true,
+        keepAlive:false,
         title:"课程学习"
       },
       component: () => import('./views/Study')
@@ -188,7 +188,7 @@ export default new Router({
       name: 'empty',
       meta:{
         keepAlive:false,
-        title:"空白页"
+        title:"善商大家族"
       },
       component: () => import('./views/Empty.vue')
     }

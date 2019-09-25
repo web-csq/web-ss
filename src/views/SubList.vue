@@ -11,32 +11,11 @@
                 <div slot="action" @click="onSearch">搜索</div>
             </van-search>
         </div>
-        <div class="box-index" style="display:flex;justify-content:space-around;align-items:center;width:85vw;padding:1rem">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="uname">John Green</div>
+        <div class="box-index" style="display:flex;justify-content:space-between;align-items:center;width:94vw;padding:1rem" v-for="(item ,index) in list" :key="index">
+            <img v-lazy="item.imgUrl" alt="" class="img">
+            <div class="uname">{{item.nickname}}</div>
             <div class="money">
-                成交金额：￥1999.00
-            </div>
-        </div>
-        <div class="box-index" style="display:flex;justify-content:space-around;align-items:center;width:85vw;padding:1rem">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="uname">John Green</div>
-            <div class="money">
-                成交金额：￥1999.00
-            </div>
-        </div>
-        <div class="box-index" style="display:flex;justify-content:space-around;align-items:center;width:85vw;padding:1rem">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="uname">John Green</div>
-            <div class="money">
-                成交金额：￥1999.00
-            </div>
-        </div>
-        <div class="box-index" style="display:flex;justify-content:space-around;align-items:center;width:85vw;padding:1rem">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="uname">John Green</div>
-            <div class="money">
-                成交金额：￥1999.00
+                成交金额：￥{{item.money}}
             </div>
         </div>
         
@@ -47,14 +26,28 @@
 export default {
     data(){
         return{
-            value:""
+            value:"",
+            list:[]
         }
     },
     methods:{
-        onSearch(){
-
-        }
-    }
+     onSearch(){
+         
+     },
+     getData(){
+         let that=this;
+         that.$post('/ally_details',{
+             uid:8||window.localStorage.uid,
+             type:2
+         }).then(res=>{
+             console.log(res)
+             that.list=res.data
+         })
+     }
+    },
+    created() {
+        this.getData()
+    },
 }
 </script>
 

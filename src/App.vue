@@ -20,8 +20,11 @@ export default {
 
     }
   },
+  methods:{
+  
+  },
   created(){
-    
+   
   }
 }
 </script>
@@ -60,18 +63,19 @@ export default {
 
 
 
-.slide-fade-enter-active {
+/* .slide-fade-enter-active {
   transition:all .5s linear;
 }
 .slide-fade-leave-active {
   transition:all .5s linear;
 }
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for below version 2.1.8 */ {
+.slide-fade-enter, .slide-fade-leave-to {
   transform: translateX(-30rem);
   opacity: 0;
-}
-
+} */
+ #nprogress .bar {
+      background: transparent !important; 
+  }
 
 
 

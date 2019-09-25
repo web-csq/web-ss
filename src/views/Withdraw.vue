@@ -14,19 +14,19 @@
          <div class="box">
             <div class="sub-box">
                 <div class="box-title">开户名</div>
-                <input type="text" placeholder="请输入银行卡开户姓名" class="box-input" v-model.trim="bank">
+                <input type="text" placeholder="请输入银行卡开户姓名" class="box-input" v-model.trim="name">
             </div>
         </div>
          <div class="box">
             <div class="sub-box">
                 <div class="box-title">银行卡号</div>
-                <input type="text" placeholder="请输入您的银行卡号" class="box-input" v-model.trim="bankname">
+                <input type="text" placeholder="请输入您的银行卡号" class="box-input" v-model.trim="bank">
             </div>
         </div>
          <div class="box">
             <div class="sub-box">
                 <div class="box-title">银行卡开户行</div>
-                <input type="text" style="width:15rem" placeholder="请输入您的银行卡开户行，非必填" class="box-input" v-model.trim="banknickname">
+                <input type="text" style="width:15rem" placeholder="请输入您的银行卡开户行，非必填" class="box-input" v-model.trim="bankname">
             </div>
         </div>
         
@@ -43,10 +43,11 @@
 export default {
     data(){
         return {
+            txmoney:"",
             money:"",
+            name:"",
             bank:"",
             bankname:"",
-            banknickname:"",
             tmoney:""
         }
     },
@@ -58,17 +59,36 @@ export default {
                 return;
             }
             if(that.bank==""){
+                that.$toast.fail('银行卡号不能为空')
+                return;
+            }
+            if(that.name==""){
                 that.$toast.fail('开户名不能为空')
                 return;
             }
             if(that.bankname==""){
-                that.$toast.fail('银行卡号不能为空')
+                that.$toast.fail('开户行不能为空')
                 return;
             }
-            that.$toast.success('点击了提交按钮')
+            that.$post('/withdraw',{
+                uid:window.localStorage.uid||1,
+                money:that.tmoney,
+                bank:that.bank,
+                bankname:that.bankname,
+                name:that.name
+            }).then(res=>{
+                console.log(res)
+                that.$toast.success(res.msg)
+            })
+
+
+
+
+            // that.$toast.success('点击了提交按钮')
         },
         getMoney(){
-            
+            this.txmoney=this.$route.query.money
+            console.log(this.txmoney)
         }
     },
     created(){

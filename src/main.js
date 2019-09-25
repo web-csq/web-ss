@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import * as request from './request'
 import store from './store'
+import {pay,config} from './pay/index'
 Vue.config.productionTip = false
 
 import 'muse-ui/lib/styles/base.less';
@@ -21,32 +22,26 @@ import 'wowjs/css/libs/animate.css'
 
 import Helpers from 'muse-ui/lib/Helpers';
 Vue.use(Helpers);
-import Loading from 'muse-ui-loading';
-import 'muse-ui-loading/dist/muse-ui-loading.css';
-Vue.use(Loading,{
-  overlayColor: 'rgba(0,0,0,0.8)',     // 背景色
-  size: 50,
-  color: '#ff90f3',      
-  text:"加载中...",
-  className:"loading"
-})
 
 
 
 
 
-import { Swipe,
-   SwipeItem ,
-   Tab, Tabs,
-   Popup,
-   Toast ,
-   Row, Col,
-   Search,
-   Slider ,
-   RadioGroup,
-   Radio,
-   Lazyload ,
-   Cell, CellGroup
+
+import { 
+  Swipe,
+  SwipeItem,
+  Tab,Tabs,
+  Popup,
+  Toast,
+  Row,Col,
+  Search,
+  Slider,
+  RadioGroup,
+  Radio,
+  Lazyload,
+  Cell,CellGroup,
+  Sticky 
 } from 'vant';
 import 'vant/lib/index.css';
 Vue.use(Swipe).use(SwipeItem)
@@ -54,14 +49,27 @@ Vue.use(Swipe).use(SwipeItem)
 .use(Popup)
 .use(Toast)
 .use(Row).use(Col)
-.use(Search )
+.use(Search)
 .use(Slider)
 .use(RadioGroup).use(Radio)
-.use(CellGroup).use(Cell);
+.use(CellGroup).use(Cell)
+.use(Sticky);
 
 Vue.use(Lazyload,{
-  loading:"@/assets/index/lazy.png"
+  // loading:"/assets/index/lazy.png",
+  // error:"/assets/index/lazy.png"
 });
+
+// import NProgress from 'nprogress'
+// import 'nprogress/nprogress.css' //这个样式必须引入
+
+
+// NProgress.inc(0.2)
+// NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false,color:'rgba(255,255,255,1)' })
+
+
+
+
 
 
 
@@ -70,23 +78,56 @@ Vue.use(Lazyload,{
 
 
 router.beforeEach((to, from, next) => {
+
   if(to.meta.title){
-    document.title=to.meta.title
+    // document.title=to.meta.title
+  }
+  // NProgress.start()
+
+  if (to.path == '/author') {
+    //进入授权页面
+
+    if (!window.localStorage.openId || window.localStorage.openId == '' || !window.localStorage.uid || window.localStorage.uid == '') {
+
+      next();
+
+    } else {
+
+      next();
+      
+    }
+  }else {
+    if (!window.localStorage.openId || window.localStorage.openId == '' || !window.localStorage.uid || window.localStorage.uid == '') {
+      window.localStorage.authBeforeFullPath = window.location.href;
+      next({ path: '/author' });
+    } else {
+      next();
+    }
   }
   
+ 
+
 
 
   next()
+
+
 })
 
+
+
+router.afterEach(() => {
+  // NProgress.done()
+})
 
 
 
 Vue.prototype.$get=request.get
 Vue.prototype.$post=request.post
 
-
-
+Vue.prototype.appId='wxa6acc23ca992289c';
+Vue.prototype.$pay=pay;
+Vue.prototype.$config=config;
 
 
 

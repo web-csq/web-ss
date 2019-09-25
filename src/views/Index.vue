@@ -1,70 +1,58 @@
 <template>
   <div class="index">
+    
     <mu-ripple color="#2196f3" :opacity="0.2" style="width:100vw;height:100vh">
-      <img src="@/assets/index/person.png" alt="" style="width:100vw">
+      <img v-lazy="'http://www.shanshangdajiazu.com'+banner" alt="" style="width:100vw;height:100vh">
     </mu-ripple>
-    <div class="box-index">
-
-      <div class="box-line">
-        <img src="@/assets/index/go2.png" alt="">
-        <div>
-          <span>新长征路上</span>已成功订阅！
+    <div class="box-index" style="overflow:hidden;height:9rem;padding:0">
+      <div :style="`transform:translateY(${-1.7*num}rem)`" class="trans">
+        <div class="box-line" v-for="(item,index) in list" :key="index">
+          <img v-lazy="item.imgUrl" alt="">
+          <div>
+            <span>{{item.nickname}}</span> 已成功订阅！
+          </div>
         </div>
-      </div>
-      <div class="box-line">
-        <img src="@/assets/index/go2.png" alt="">
-        <div>
-          <span>新长征路上</span>已成功订阅！
-        </div>
-      </div>
-      <div class="box-line">
-        <img src="@/assets/index/go2.png" alt="">
-        <div>
-          <span>新长征路上</span>已成功订阅！
-        </div>
-      </div>
-      <div class="box-line">
-        <img src="@/assets/index/go2.png" alt="">
-        <div>
-          <span>新长征路上</span>已成功订阅！
-        </div>
-      </div>
+     </div>
     </div>
 
-    <h2 class="title">经典推荐</h2>
+    <h2 class="title">{{sort1.sort_name}}</h2>
     <h4 class="sub-title">老师示范 &nbsp; 学员跟练</h4>
 
     <div class="subbox">
-        <div class="wow bounceInDown" data-wow-delay="0.2s" style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="showPopup">
-          <img src="@/assets/index/go1.png" alt="">
+        <div class="wow bounceInDown" data-wow-delay="0.2s" style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="level<1?showPopup(1,content1.id):jumpStudy(content1.id)">
+          <img v-lazy="'http://www.shanshangdajiazu.com'+content1.img" alt="">
           <h4>爱享训练</h4>
-          <p>认识自己，把握自 己，爱自己</p>
+          <p>认识自己，把握自己，爱自己</p>
         </div>
-      <div class="wow bounceInDown" data-wow-delay="0.5s" style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="showMiddle">
-        <img src="@/assets/index/go2.png" alt="">
+
+
+
+      <div class="wow bounceInDown" data-wow-delay="0.5s" style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="level>1?jumpStudy(content2.id):showMiddle(2)">
+        <img v-lazy="'http://www.shanshangdajiazu.com'+content2.img" alt="">
         <h4>动感强化训练</h4>
         <p>睡服她，让她欲罢 不能</p>
       </div>
-      <div class="wow bounceInDown" data-wow-delay="0.8s" style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="jumpStudy">
-        <img src="@/assets/index/go3.png" alt="">
+      <div class="wow bounceInDown" data-wow-delay="0.8s" style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="level>1?jumpStudy(content3.id):showMiddle(2)">
+        <img v-lazy="'http://www.shanshangdajiazu.com'+content3.img" alt="">
         <h4>情侣双休训练</h4>
         <p>解锁性爱的高阶玩法</p>
       </div>
     </div>
+
     <div style="font-size:1.4rem;font-family:SourceHanSansCN-Regular;font-weight:400;color:rgba(255,73,74,1);padding-left:1rem">
-      ￥1.00
+      ￥{{money1}}
     </div>
 
 
-    <h2 class="title">应用训练</h2>
+    <h2 class="title">{{sort2.title}}</h2>
     <div class="wow bounceInLeft" data-wow-delay="0.3s">
-      <img src="@/assets/index/floor1.png" alt="" class="img" @click="jumpStudy">
+      <img v-lazy="'http://www.shanshangdajiazu.com'+sort2.img" alt="" class="img" @click="level>1?jumpStudy(sort2.id):showMiddle(2)">
     </div>
-    
 
-    <h2 class="title">拔高训练</h2>
+    
+    <h2 class="title">{{sort3.title}}</h2>
     <div class="wow bounceInRight" data-wow-delay="0.6s">
-       <img src="@/assets/index/floor2.png" alt="" class="img" @click="showAnswer">
+       <img v-lazy="'http://www.shanshangdajiazu.com'+sort3.img" alt="" class="img" @click="level<2?showMiddle(2):showAnswer()">
     </div>
    
     <div class="bottom">
@@ -73,12 +61,10 @@
     <div style="width:100vw;height:3rem;"></div>
 
     <div class="bottom-div">
-      <button class="bottom-btn" @click="showPopup">
-      ￥1998元立即开通
+      <button class="bottom-btn" @click="showPopup(2)">
+      ￥{{parseInt(money2)}}元立即开通
       </button>
     </div>
-
-
 
 
 
@@ -94,11 +80,11 @@
           <div>请选择支付方式</div>
           <img src="@/assets/index/hide.png" @click="hide">
         </div>
-        <div class="weixin" @click="jumpPaySuccess">
+        <div class="weixin" ref="pay" @click="wxPay">
           <img src="@/assets/index/weixin.png" alt="">
           <span>微信支付</span>
         </div>
-        <div class="ali">
+        <div class="ali" @click="Alipay">
           <img src="@/assets/index/ali.png" alt="">
           <span>支付宝支付</span>
         </div>
@@ -114,7 +100,7 @@
         <div style="background:transparent;height:2rem;"> 
           <img src="@/assets/index/del.png" style="width:1.8rem;height:1.8rem;float:right;" @click="hide">
         </div>
-        <img src="@/assets/index/tip.png" alt="" style="width:75%;margin:0 auto;display:block;" @click="pay">
+        <img src="@/assets/index/tip.png" alt="" style="width:75%;margin:0 auto;display:block;" @click="showPopup(2)">
       </div>
     </van-popup>
 
@@ -298,12 +284,30 @@
 
 
 <script>
-import { setTimeout } from 'timers';
+import { setTimeout, setInterval, clearInterval } from 'timers';
 import { WOW } from 'wowjs'
 export default {
   data(){
     return{
       show:false,
+      list:[
+        {id:1,nickname:"新长征路上",imgUrl:require('../assets/index/go1.png')},
+        {id:2,nickname:"哈哈哈哈",imgUrl:require('../assets/index/go1.png')},
+        {id:3,nickname:"你好水电费",imgUrl:require('../assets/index/go1.png')},
+        {id:4,nickname:"速度佛环",imgUrl:require('../assets/index/go1.png')},
+        {id:5,nickname:"是否就是你的复垦",imgUrl:require('../assets/index/go1.png')},
+        {id:6,nickname:"胜多负少的",imgUrl:require('../assets/index/go1.png')},
+        {id:7,nickname:"新长征路上",imgUrl:require('../assets/index/go1.png')},
+        {id:8,nickname:"哈哈哈哈",imgUrl:require('../assets/index/go1.png')},
+        {id:9,nickname:"你好水电费",imgUrl:require('../assets/index/go1.png')},
+        {id:10,nickname:"速度佛环",imgUrl:require('../assets/index/go1.png')},
+        {id:11,nickname:"速度佛环",imimgUrlg:require('../assets/index/go1.png')},
+        {id:12,nickname:"是否就是你的复垦",imgUrl:require('../assets/index/go1.png')},
+        {id:13,nickname:"胜多负少的",imgUrl:require('../assets/index/go1.png')},
+        {id:14,nickname:"新长征路上",imgUrl:require('../assets/index/go1.png')},
+      ],
+      timer:"",
+      num:0,
       middleShow:false,
       anwserShow:false,
       radio1:'1',
@@ -314,12 +318,29 @@ export default {
       anshow2:false,
       anshow3:false,
       anshow4:false,
-      number:1
+      number:1,
+      sort1:{},
+      sort2:{},
+      sort3:{},
+      content1:"",
+      content2:"",
+      content3:"",
+      money1:-1,
+      money2:-1,
+      banner:"",
+      type:-1,
+      level:-1,
+      load:"",
+      cid:-1,
+      personList:[]
     }
   },
   methods: {
-    showPopup(){
-      this.show=true
+    showPopup(type,cid=-1){
+      this.middleShow=false;
+      this.show=true;
+      this.cid=cid
+      this.type=type;
 
       // var that=this
       
@@ -343,19 +364,19 @@ export default {
     showAnswer(){
       this.anwserShow=true
     },
-    jumpStudy(){
-      this.$router.push('/study')
+    jumpStudy(cid){
+      this.$router.push('/study?cid='+cid)
     },
     next(){
       var that=this
 
       if(that.number==1){
-        console.log("第一题")
+        // console.log("第一题")
         if(that.radio1!=3){
-          console.log("大错了")
+          // console.log("大错了")
           if(that.anshow1==false){
             that.anshow1=true;
-            console.log("显示答案")
+            // console.log("显示答案")
             return;
           }else{
             this.number=2
@@ -408,39 +429,199 @@ export default {
       }
       if(that.number==5){
         that.anwserShow=false;
-        that.number=1
+        that.number=1;
         that.anshow1=false;
         that.anshow2=false;
         that.anshow3=false;
         that.anshow4=false;
-        this.$router.push('/fackback')
+        that.$router.push('/study?cid='+that.sort3.id)
       }
  
     },
-    jumpPaySuccess(){
-      this.$router.push('/paysuccess')
+    wxPay(){
+      
+      let that=this;
+      let money;
+
+      let data={
+        uid:window.localStorage.uid,
+        cid:19,
+        price:-1,
+        type:"WeChat"
+      }
+      if(that.cid>-1){
+        data.cid=that.cid
+      }else{
+        data.cid=""
+      }
+      console.log(that.type)
+      //普通成员
+      if(that.type===1){
+        data.price=that.money1;
+        data.cid=that.cid
+        if(this.level==1){
+          this.$toast.success('您已经是会员了');
+          return;
+        }
+      }else if(that.type===2){
+        data.price=that.money2;
+        delete data.cid
+        if(this.level==2){
+          this.$toast.success('您已经是会员了');
+          return;
+        }
+      }
+      console.log(data)
+      
+      that.$pay('/buy_courses',data,that).then(()=>{
+        
+       
+      })
+
+
+
+    },
+    Alipay(){
+      
+      // let money,cid,str;
+
+      //  if(this.type===1){
+      //    if(this.level==1){
+      //     this.$toast.success('您已经是会员了');
+      //     return;
+      //   }
+      //   money=this.money1;
+      //   cid=this.cid
+      //   str=`?uid=${window.localStorage.uid}&cid=${cid}&price=${money}&type=Alipay`
+      // }else if(this.type===2){
+      //   if(this.level==2){
+      //     this.$toast.success('您已经是会员了');
+      //     return;
+      //   }
+      //   money=this.money2;
+
+      //   str=`?uid=${window.localStorage.uid}&price=${money}&type=Alipay`
+      // }
+      
+      // window.location.href='http://www.shanshangdajiazu.com/pay/index.html'+str
+
+
+    },
+    getShowList(){
+      let that=this;
+      let add=1
+      that.timer=setInterval(()=>{
+        if(that.list.length<=5){
+            clearInterval(that.timer)
+        }else{
+          
+          that.num+=add;
+          // if(that.num==that.list.length-4){
+          //   add=-1
+          // }
+          console.log(that.num,that.list.length)
+          if(that.num==that.list.length-5){
+             clearInterval(that.timer)
+          }
+          
+        }
+        
+
+
+      },2000)
+      
+
+      
     },
     getData(){
       let that=this;
-      var data={
-        uid:3
-      }
-      that.$get('http://rh.boxinid.com/api/product').then((res)=>console.log(res))
+      that.$get('/home').then(res=>{
+        that.banner=res.data.banner.b_url;
+        that.sort1 =res.data.sort[0];
+
+        that.content1 =that.sort1.content[0]
+        that.content2 =that.sort1.content[1]
+        that.content3 =that.sort1.content[2]
+
+        that.sort2.img =res.data.sort[1].content[0].img;
+        that.sort2.title =res.data.sort[1].content[0].c_name;
+        that.sort2.id =res.data.sort[1].content[0].id;
+        that.sort3.img =res.data.sort[2].content[0].img;
+        that.sort3.title =res.data.sort[2].content[0].c_name;
+        that.sort3.id =res.data.sort[2].content[0].id;
+       
+        that.money1=res.data.money[0].price;
+        that.money2=res.data.money[1].price;
+
+        
+        console.log(res.data)
+        setTimeout(()=>{
+          // that.load.close()
+        },500)
+        // console.log(that.sort1)
+      })
+      that.$post('/refresh',{uid:window.localStorage.uid}).then(res=>{
+        console.log(res)
+        window.sessionStorage.level=that.level=res.data.level
+      })
+      that.$get('/carousel').then(res=>{
+        console.log(res)
+        that.list=res.data
+      })
+
     }
+    
  
   },
   created () {
-    this.getData()
+    this.$config()
+    // this.load=this.$loading()
+    this.getShowList();
+    this.getData();
+    
+    
   },
   mounted() {
-    var wow =new WOW({
-      boxClass:"wow",
-      live:false,
-      offset:0,
-      moblie:true
-    })
-    wow.init()
+    // let that=this
+    // var wow =new WOW({
+    //   boxClass:"wow",
+    //   live:false,
+    //   offset:0,
+    //   moblie:true
+    // })
+    // wow.init()
+
+    // that.$config()
+
+
+    //  let data={
+    //     uid:window.sessionStorage.uid,
+    //     cid:19,
+    //     price:1,
+    //     type:"微信"
+    //   }
+    //   var timer;
+    //   timer=setInterval(()=>{
+    //     var button= that.$refs.pay
+      
+    //      if(button){
+           
+    //        clearInterval(timer)
+    //        that.$pay('/buy_courses',button,data)
+    //      }
+    //     // that.$pay('/buy_courses',data,button)
+
+    //   },1000)
+      
+
+
+
+    
   },
+  beforeDestroy(){
+    
+    clearInterval(this.timer)
+  }
 }
 </script>
 
@@ -453,6 +634,7 @@ export default {
   padding: 0 0 0 0.5rem;
   align-items: center;
   margin: 0.5rem;
+  
 }
 .box-line img{
   width: 1rem;
@@ -474,6 +656,8 @@ export default {
 .subbox div img{
   width: 100%;
   height: 7rem;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
 }
 .subbox div h4{
   margin: 0.5rem 0 0 0.3rem;
@@ -505,6 +689,7 @@ export default {
   width: 96vw;
   margin: 0.5rem auto 1rem;
   display: block;
+  border-radius: 8px;
 }
 .bottom-btn{
   display: block;
@@ -519,6 +704,7 @@ export default {
   background: url('../assets/index/btn-bg.png') no-repeat ;
   background-size: 100%;
   letter-spacing: 0.2rem;
+  overflow: hidden;
 }
 .bottom-div{
   width: 100vw;
@@ -574,6 +760,7 @@ export default {
   font-weight:400;
   color:rgba(92,92,92,1);
   letter-spacing: 0.1rem;
+  
 }
 .van-popup{
   background:rgba(0,0,0,0)
@@ -663,16 +850,22 @@ export default {
   font-weight:500;
   color:rgba(255,53,53,1);
 }
+.trans{
+  transform: translateY(0);
+  transition: .5s;
+}
 
-.fade-enter-active, .fade-leave-active {
+/* .fade-enter-active, .fade-leave-active {
   transition: all 1s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter, .fade-leave-to {
   opacity: 0;
   transform:translate3d(-120px,-500px,0) scale(.5)
+} */
+
+.index >>> .mu-ripple-wrapper{
+    height: 100%!important;
 }
-
-
 
 
 

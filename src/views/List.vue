@@ -1,29 +1,49 @@
 <template>
-    <div class="bg">
+    <div class="bg" v-if="show">
         <div class="sub-bg">
-            <img src="@/assets/index/touxiang.png" alt="" class="ava">
+            <img v-lazy="num2.imgUrl" alt="" class="ava">
         </div>
         <div class="sub-bg">
-            <img src="@/assets/index/touxiang.png" alt="" class="ava1">
+            <img v-lazy="num1.imgUrl" alt="" class="ava1">
         </div>
         <div class="sub-bg">
-            <img src="@/assets/index/touxiang.png" alt="" class="ava">
+            <img v-lazy="num3.imgUrl" alt="" class="ava">
         </div>
         <img src="@/assets/center/list.png" alt="" class="list">
         <div class="sub-money sub-money1">
             <div>第一名</div>
-            <div>36358 元</div>
+            <div>{{num1.earnings}} 元</div>
         </div>
         <div class="sub-money sub-money2">
             <div>第二名</div>
-            <div>29135 元</div>
+            <div>{{num2.earnings}} 元</div>
         </div>
         <div class="sub-money sub-money3">
             <div>第三名</div>
-            <div>14759 元</div>
+            <div>{{num3.earnings}} 元</div>
         </div>
         <div class="box-home" style="background:#FFF;margin-top:0;display:block;">
-            <div class="box">
+            <div class="box" v-for="(item,index) in list" :key="index">
+                <van-row>
+                    <van-col span="3">
+                        <div class="num">
+                            {{item.cap}}
+                        </div>
+                    </van-col>
+                    <van-col span="4">
+                        <img v-lazy="item.imgUrl" alt="" class="ava-img">
+                    </van-col>
+                    <van-col span="6">
+                        <div class="name">{{item.nickname}}</div>
+                    </van-col>
+                    <van-col span="11">
+                        <div class="salary">
+                            {{item.earnings}} 元
+                        </div>
+                    </van-col>
+                </van-row>
+            </div>
+      <!--       <div class="box">
                 <van-row>
                     <van-col span="3">
                         <div class="num">
@@ -122,27 +142,7 @@
                         </div>
                     </van-col>
                 </van-row>
-            </div>
-            <div class="box">
-                <van-row>
-                    <van-col span="3">
-                        <div class="num">
-                            4
-                        </div>
-                    </van-col>
-                    <van-col span="4">
-                        <img src="@/assets/index/touxiang.png" alt="" class="ava-img">
-                    </van-col>
-                    <van-col span="6">
-                        <div class="name">Aannan</div>
-                    </van-col>
-                    <van-col span="11">
-                        <div class="salary">
-                            14456 元
-                        </div>
-                    </van-col>
-                </van-row>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -152,9 +152,41 @@
 export default {
     data(){
         return{
-
+            num1:"",
+            num2:"",
+            num3:"",
+            list:[],
+            load:"",
+            show:false
         }
-    }
+    },
+    methods:{
+        getData(){
+            let that=this;
+            that.$get('/ranking').then(res=>{
+               
+                for(let i=0;i<res.data.length;i++){
+                    res.data[i].cap=i+1
+                }
+                 console.log(res)
+                that.num1=res.data[0]
+                that.num2=res.data[1]
+                that.num3=res.data[2]
+                if(res.data.length>3){
+                    that.list=res.data.splice(3);
+                    console.log(that.list)
+                }
+                setTimeout(()=>{
+                    // that.load.close()
+                    that.show=true;
+                },500)
+            })
+        }
+    },
+    created() {
+        // this.load=this.$loading()
+        this.getData()
+    },
 }
 </script>
 
@@ -167,6 +199,7 @@ export default {
     position: relative;
     top:0rem;
     left:0rem;
+    padding-bottom: 4rem;
 } 
 .sub-bg{
     width: 5rem;

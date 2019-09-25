@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div style="width:84vw;margin:0 auto;">
+        <div style="width:84vw;margin:0 auto;" class="search">
             <van-search
                 v-model="value"
                 placeholder="请输入用户名称"
@@ -11,32 +11,11 @@
                 <div slot="action" @click="onSearch">搜索</div>
             </van-search>
         </div>
-        <div class="box-index" style="display:flex;justify-content:space-around;align-items:center;width:85vw;padding:1rem">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="uname">John Green</div>
+        <div class="box-index" style="display:flex;justify-content:space-between;align-items:center;width:95vw;padding:1rem" v-for="(item,index) in list" :key="index">
+            <img v-lazy="item.imgUrl" alt="" class="img">
+            <div class="uname">{{item.nickname}}</div>
             <div class="money">
-                成交金额：￥1999.00
-            </div>
-        </div>
-        <div class="box-index" style="display:flex;justify-content:space-around;align-items:center;width:85vw;padding:1rem">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="uname">John Green</div>
-            <div class="money">
-                成交金额：￥1999.00
-            </div>
-        </div>
-        <div class="box-index" style="display:flex;justify-content:space-around;align-items:center;width:85vw;padding:1rem">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="uname">John Green</div>
-            <div class="money">
-                成交金额：￥1999.00
-            </div>
-        </div>
-        <div class="box-index" style="display:flex;justify-content:space-around;align-items:center;width:85vw;padding:1rem">
-            <img src="@/assets/index/touxiang.png" alt="" class="img">
-            <div class="uname">John Green</div>
-            <div class="money">
-                成交金额：￥1999.00
+                关注时间：{{item.addtime}}
             </div>
         </div>
         
@@ -47,14 +26,28 @@
 export default {
     data(){
         return{
-            value:""
+            value:"",
+            list:[]
         }
     },
-    methods:{
+     methods:{
         onSearch(){
-
+            
+        },
+        getData(){
+            let that=this;
+            that.$post('/ally_details',{
+                uid:window.localStorage.uid,
+                type:1
+            }).then(res=>{
+                console.log(res)
+                that.list=res.data
+            })
         }
-    }
+    },
+    created() {
+        this.getData()
+    },
 }
 </script>
 
@@ -64,19 +57,21 @@ export default {
      width: 3rem;
      height: 3rem;
      border-radius: 50%;
+     float: left;
  }   
  .uname{
     font-size:1rem;
     font-family:SourceHanSansCN-Regular;
     font-weight:400;
     color:rgba(51,51,51,1);
-    margin-left:1rem 
  }
  .money{
     font-size:.8rem;
     font-family:SourceHanSansCN-Regular;
     font-weight:400;
     color:rgba(211,150,58,1);
-    margin-left:1rem 
+ }
+ .search >>> .van-search{
+     /* background-color: transparent!important; */
  }
 </style>

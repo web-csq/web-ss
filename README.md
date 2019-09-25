@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # ss_app
 
 ## Project setup
@@ -27,7 +27,6 @@ npm run lint
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-=======
+
 # web-ss
->>>>>>> 037512ebc1eea630d1c6e947ea7600f9ae3c22dd
+

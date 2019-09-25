@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div v-if="show">
         <div class="top">
-            <img src="@/assets/index/touxiang.png" alt="" class="ava">
-            <span class="uname">开心</span>
+            <img v-lazy="info.imgUrl" alt="" class="ava">
+            <span class="uname">{{info.nickname}}</span>
             <div class="level">健身达人</div>
             <div style="width:45%;text-align: right;" @click="jumpPush">
                立即推广
@@ -14,31 +14,32 @@
             </div>
             <div class="floor2">
                 <div class="money">
-                    0.00
+                    {{info.earnings}}
                 </div>
-                <div class="withdrap" @click="jumpWithdraw">
+                <div class="withdrap" @click="jumpWithdraw(info.money)">
                     立即提现
                 </div>
             </div>
             <div class="floor3"> 
                 <div class="fl" @click="jumpClient">
                     <div>累计客户 (人)</div>
-                    <div>1</div>
+                    <div>{{info.lower_level}}</div>
                 </div>
                 <div class="line"></div>
                 <div class="fl" @click="jumpSubList">
                     <div>下级推广员 (人)</div>
-                    <div>0</div>
+                    <div>{{info.recommend}}</div>
                 </div>
                 <div class="line"></div>
                 <div class="fl" @click="jumpPushOrder">
                     <div>推广订单 (笔)</div>
-                    <div>0</div>
+                    <div>{{info.order}}</div>
                 </div>
             </div>
         </div>
         <div style="display:flex;justify-content:space-around;margin-top:1.5rem;">
             <div class="middle1" @click="jumpMessage">
+                <div class="circle" v-if="info.message">{{info.message}}</div>
                 <van-row>
                     <van-col span="4">
                         <img src="@/assets/center/ling.png" alt="" class="left">
@@ -48,8 +49,10 @@
                     </van-col>
                     <van-col span="2">
                         <img src="@/assets/center/you.png" alt="" class="you">
+                        
                     </van-col>
                 </van-row>
+                
             </div>
             <div class="middle1" @click="jumpList">
                 <van-row>
@@ -85,12 +88,14 @@
 export default {
     data(){
         return{
-
+            info:{},
+            load:"",
+            show:false
         }
     },
     methods:{
-        jumpWithdraw(){
-            this.$router.push('/withdraw')
+        jumpWithdraw(money){
+            this.$router.push('/withdraw?money='+money)
         },
         jumpMessage(){
             this.$router.push('/message')
@@ -112,7 +117,23 @@ export default {
         },
         jumpPush(){
             this.$router.push('/push')
+        },
+        getData(){
+            let that=this;
+            that.$post('/ally',{uid:window.localStorage.uid}).then(res=>{
+               
+                that.info=res.data;
+                console.log(res)
+                setTimeout(()=>{
+                    // that.load.close()
+                    that.show=true
+                },500)
+            })
         }
+    },
+    created () {
+        // this.load=this.$loading()
+        this.getData()
     }
 }
 </script>
@@ -232,6 +253,9 @@ export default {
     box-shadow: 0 0 5px #ccc;
     border-radius: 8px;
     padding: 1rem;
+    position: relative;
+    top: 0;
+    left: 0;
     box-sizing: border-box;
 }
 .left{
@@ -259,7 +283,17 @@ export default {
     color:rgba(51,51,51,1);
     margin-left: 1rem;
 }
-
+.circle{
+    background: #f00;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    position: absolute;
+    top: -.5rem;
+    right: -.5rem;
+    color: #fff;
+    text-align: center;
+}
 
 
 

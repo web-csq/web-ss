@@ -2,8 +2,8 @@
     <div class="content">
         <img src="@/assets/index/dui.png" alt="" class="img">
         <div class="box-index" style="background:#fff;">
-            <h2>“支付成功”</h2>
-            <p style="margin-top:1rem;">
+            <h2 style="margin:1rem 0 0 0;">“支付成功”</h2>
+            <!-- <p style="margin-top:1rem;">
                 购买成功后，请将报名情趣浸泡馆的支付凭证发给维维顾问，否则将无法进入项目学习。         
             </p>
             <p>
@@ -11,9 +11,9 @@
             </p>
             <p>
                 如果您还未添加维维顾问，请扫描二维码添加好友。
-            </p>
+            </p> -->
             <button class="btn" @click="jumpStudy">
-                查看课程详情
+                回到首页
             </button>
         </div>
     </div>
@@ -30,7 +30,7 @@ export default {
     },
     methods:{
         jumpStudy(){
-            this.$router.push('/study')
+            this.$router.push('/index')
         }
     }
 }

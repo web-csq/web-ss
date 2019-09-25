@@ -1,38 +1,10 @@
 <template>
     <div>
-        <div class="box-index" style="width:94vw;box-sizing:border-box;display:flex;justify-content:space-between">
-            <img src="@/assets/index/touxiang.png" alt="" class="avathor">
+        <div class="box-index" style="width:94vw;box-sizing:border-box;display:flex;justify-content:space-between" v-for="(item,index) in list" :key="index">
+            <img v-lazy="'http://www.shanshangdajiazu.com'+item.img" alt="" class="avathor">
             <div class="right">
-                <div class="text">“销量 + 收听量” 决破千万的声音训 练类线上课程，训练动感化。</div>
-                <div class="price">￥1999.00</div>
-            </div>
-        </div>
-        <div class="box-index" style="width:94vw;box-sizing:border-box;display:flex;justify-content:space-between">
-            <img src="@/assets/index/touxiang.png" alt="" class="avathor">
-            <div class="right">
-                <div class="text">“销量 + 收听量” 决破千万的声音训 练类线上课程，训练动感化。</div>
-                <div class="price">￥1999.00</div>
-            </div>
-        </div>
-        <div class="box-index" style="width:94vw;box-sizing:border-box;display:flex;justify-content:space-between">
-            <img src="@/assets/index/touxiang.png" alt="" class="avathor">
-            <div class="right">
-                <div class="text">“销量 + 收听量” 决破千万的声音训 练类线上课程，训练动感化。</div>
-                <div class="price">￥1999.00</div>
-            </div>
-        </div>
-        <div class="box-index" style="width:94vw;box-sizing:border-box;display:flex;justify-content:space-between">
-            <img src="@/assets/index/touxiang.png" alt="" class="avathor">
-            <div class="right">
-                <div class="text">“销量 + 收听量” 决破千万的声音训 练类线上课程，训练动感化。</div>
-                <div class="price">￥1999.00</div>
-            </div>
-        </div>
-        <div class="box-index" style="width:94vw;box-sizing:border-box;display:flex;justify-content:space-between">
-            <img src="@/assets/index/touxiang.png" alt="" class="avathor">
-            <div class="right">
-                <div class="text">“销量 + 收听量” 决破千万的声音训 练类线上课程，训练动感化。</div>
-                <div class="price">￥1999.00</div>
+                <div class="text">{{item.c_name}}</div>
+                <div class="price">￥{{item.money}}</div>
             </div>
         </div>
     </div>
@@ -41,9 +13,23 @@
 export default {
     data(){
         return{
-
+            list:[]
         }
-    }
+    },
+    methods:{
+        getData(){
+            let that=this;
+            that.$post('/my_party',{
+                uid:window.localStorage.uid
+            }).then(res=>{
+                console.log(res)
+                that.list=res.data
+            })
+        }
+    },
+    created() {
+        this.getData()
+    },
 }
 </script>
 
@@ -53,21 +39,22 @@ export default {
     height: 5rem;
 }
 .right{
-    width: 60vw;
+    width: 57vw;
 }
 .text{
-    font-size:0.8rem;
+    font-size:1rem;
     font-family:PingFang-SC-Medium;
     font-weight:500;
     color:rgba(0,0,0,1);
     letter-spacing: 0.1rem;
-    height: 4rem;
+    height: 2.5rem;
 }
 .price{
-    font-size:0.6rem;
+    font-size:0.8rem;
     font-family:PingFang-SC-Bold;
     font-weight:bold;
     color:rgba(0,0,0,1);
     letter-spacing: 1px;
+    margin:.4rem 0 0 0;
 }
 </style>

@@ -1,10 +1,16 @@
 <template>
     <div style="position:relative;top:0;left:0;">
         <div class="title" style="font-size:1.2rem;">
-            动感强化训练
+            {{content1.c_name}}
         </div>
+
+        <div class="cont" v-html="content1.content"></div>
+
+
+
+
         <img src="@/assets/index/edit.png" class="fixed" @click="showComment">
-        <img src="@/assets/index/teacher.png" style="width:100vw;display:block;margin:0 auto">
+       <!--  <img src="@/assets/index/teacher.png" style="width:100vw;display:block;margin:0 auto">
         <audio :src="require('./../../public/music.mp3')" ref="audio" class="audio" preload="auto"></audio>
         <div class="audio-container">
             <img :src="isPlay==false?require('@/assets/index/bofang.png'):require('@/assets/index/zanting.png')" style="width:3.5rem;height:3.5rem;margin:0 0 0 .4rem;" @click="play">
@@ -33,7 +39,7 @@
         <p class="p">也许你曾因为性认知的缺失，在亲密关系里失败过。不过我想告诉你，在这里，一定会改变你在两性关系中的格局。【体魄私教训练馆】让所有夫妻，告别伤害，快乐起来！
         </p>
         <p class="p">致力打造中国领先的专注于家庭幸福领域培训进化平台，以助人达成目标，共创美好未来为核心价值理念，旨在造就家庭更加和谐幸福。
-        </p>
+        </p> -->
 
         <van-tabs v-model="activeName"
             line-height="2px"
@@ -42,7 +48,17 @@
             <van-tab title="圈友好评" name="a">
             <div class="parent"  ref="wrapper">
             <div style="padding-top:1rem">
-                <div class="wrap">
+                <div ></div>
+                <div class="wrap" v-for="(item,index) in content1.list" :key="index">
+                    <div style="display:flex;align-items:center">
+                        <img v-lazy="item.img" >
+                        <span>{{item.nickname}}</span>
+                    </div>
+                    <div class="text">
+                        {{item.content}}
+                    </div>
+                </div>
+                <!-- <div class="wrap">
                     <div style="display:flex;align-items:center">
                         <img src="@/assets/index/banner.png" >
                         <span>John Green</span>
@@ -86,24 +102,20 @@
                     <div class="text">
                         上了体魄私教训练馆之后我对嗳嗳的理解更加系统科学，嗳嗳应该是一个阳光化的，而不是传统那些认为嗳嗳是不干净的话题。 那些说西方嗳嗳开放的，大概是不了解西方嗳嗳文化，婚前多尝试，婚后很忠诚，不像我们国家，婚前一片空，婚后乱哄哄。所以路漫漫，还需要很多人一起努力让嗳嗳阳光化。
                     </div>
-                </div>
-                <div class="wrap">
-                    <div style="display:flex;align-items:center">
-                        <img src="@/assets/index/banner.png" >
-                        <span>John Green</span>
-                    </div>
-                    <div class="text">
-                        上了体魄私教训练馆之后我对嗳嗳的理解更加系统科学，嗳嗳应该是一个阳光化的，而不是传统那些认为嗳嗳是不干净的话题。 那些说西方嗳嗳开放的，大概是不了解西方嗳嗳文化，婚前多尝试，婚后很忠诚，不像我们国家，婚前一片空，婚后乱哄哄。所以路漫漫，还需要很多人一起努力让嗳嗳阳光化。
-                    </div>
-                </div>
+                </div> -->
+                <div style="width:100vw;height:1rem"></div>
             </div>
             </div>
 
 
-
+            
             </van-tab>
             <van-tab title="问题反馈" name="b">
-                <div class="box-index" style="width:85vw;box-shadow:0 0 5px #99AEDF;margin-bottom:1rem;">
+               
+                 <div class="bg">
+                     <div class="title1">
+                         * 请认真填写以下信息
+                     </div>
                     <div class="line">
                         <span>姓名</span>
                         <input type="text" placeholder="请输入本人姓名" v-model.trim="uname">
@@ -121,11 +133,12 @@
                         <textarea  cols="30" rows="10" placeholder="请输入反馈内容" v-model.trim="content"></textarea>
                     </div>
 
-                    <button class="submit" @click="submintfan">
+                    <button class="submit" @click="submitfan">
                         提交反馈
                     </button>
+                   
                 </div>
-                <div style="width:100vw;height:23vh;"></div>
+                <div style="width:100vw;height:0vh;"></div>
             </van-tab>
         </van-tabs>
 
@@ -173,9 +186,12 @@ export default {
             value:0,
             eTime:"",
             isPlay:false,
+            content1:""
         }
     },
     methods:{
+
+
         play(){
             
             var audio=this.$refs.audio;
@@ -245,15 +261,31 @@ export default {
             this.commentShow=false
         },
         submitComment(){
+            let that=this
             if(this.comment==""){
                 this.$toast.fail('内容不能为空');
                 return
             }
+            this.$post('/addComment',{
+                uid:window.localStorage.uid,
+                content:this.comment,
+                course_id:that.content1.id
+            }).then(res=>{
+                // console.log(res)
+                that.commentShow=false
+                that.$toast.success(res.msg);
+                setTimeout(()=>{
+                    that.$router.go(0)
+                },1200)
+                
+            })
 
-            this.$toast.success('提交成功');
-            this.commentShow=false
+
+            // this.$toast.success('提交成功');
+            
         },
-        submintfan(){
+        submitfan(){
+            let that=this;
             if(this.uname==""){
                 this.$toast.fail('姓名不能为空');
                 return
@@ -271,19 +303,60 @@ export default {
                 return
             }
             this.$toast.success('提交成功');
+            that.$post('/problem',{
+                uid:window.localStorage.uid||1,
+                content:that.content,
+                name:that.uname,
+                mobile:that.phone,
+                wechat:that.weixin,
+            }).then(res=>{
+                console.log(res)
+                if(res.code===200){
+                    that.$toast.success(res.msg)
+                    setTimeout(()=>{
+                        window.history.go(0)
+                    },1500)
+                   
+                }else{
+                    that.$toast.fail(res.msg)
+                }
+
+
+                // setTimeout(()=>{window.history.go(0)},1500)
+                
+            }).catch(err=>{
+                console.log(err)
+            })
         },
         setScroll(){
-            var that=this
-            this.$nextTick(()=>{
-                that.scroll=new Scroll(that.$refs.wrapper,{
-                    tap:true
-                })
-            })
+            // var that=this
+            // this.$nextTick(()=>{
+            //     that.scroll=new Scroll(that.$refs.wrapper,{
+            //         tap:true
+            //     })
+            // })
            
+        },
+        getData(){
+            let that=this
+            let cid=this.$route.query.cid
+            that.$post('/look',{
+                uid:window.localStorage.uid,
+                cid
+            }).then(res=>{
+                console.log(res)
+                if(res.code===200){
+                    that.content1=res.data
+                }
+            })
         }
+    },
+    created () {
+      this.getData()  
     },
     mounted(){
         this.setScroll()
+        console.log(this.$route.query.cid)
     }
 
 }
@@ -363,19 +436,20 @@ export default {
     color:rgba(51,51,51,1);
     margin-top: 0.5rem;
     letter-spacing: 0.1rem;
+    word-break: break-all;
 }
 .line{
-    background-color: #F2F2F2;
+    background-color: rgba(255,255,255,0.5);
     border-radius: 5px;
     width: 76vw;
-    margin: 1rem auto;
+    margin: 1.3rem auto;
     display: flex;
     justify-content: space-between;
     padding: 0 1rem;
     box-sizing: border-box;
 }
 .line input{
-    background-color: #F2F2F2;
+    background-color: rgba(255,255,255,0);
     box-sizing: border-box;
     text-align: right;
     color:#787777;
@@ -388,10 +462,11 @@ export default {
     font-family:SourceHanSansCN-Normal;
     font-weight:400;
     color:#333333;
-    line-height:2rem;
+    line-height:2.5rem;
+
 }
 .line textarea{
-    background-color: #F2F2F2;
+    background-color: rgba(255,255,255,0);
     box-sizing: border-box;
     color:#787777;
     font-size:0.8rem;
@@ -408,7 +483,7 @@ export default {
   display: block;
   width: 80vw;
   height: 2.4rem;
-  margin: 0 auto;
+  margin: 1rem auto 0;
   font-size:1.1rem;
   font-family:SourceHanSansCN-Medium;
   font-weight:500;
@@ -503,14 +578,49 @@ export default {
 }
 
 
-
-
-.fade-enter-active, .fade-leave-active {
-  transition: all 1s;
+/* .fade-enter-active, .fade-leave-active {
+  transition: all 1s ;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter, .fade-leave-to {
   opacity: 0;
-  transform:translate3d(-120px,-500px,0) scale(.5)
+  transform:translate3d(-120px,-600px,0) scale(.5)
+} */
+.cont{
+    width: 100vw;
+    overflow: hidden;
+    padding: .5rem;
+    box-sizing: border-box;
 }
-
+.cont >>> img{
+    width: 94vw !important;
+    display: block !important;
+    margin: 1rem auto !important;
+}
+.cont >>> video{
+    width: 96vw !important;
+    display: block !important;
+    margin: 1rem auto;
+}
+.cont >>> audio{
+    width: 83vw !important;
+    display: block !important;
+    margin: 1rem auto !important;
+}
+.bg{
+    width: 96vw;
+    margin: 0 auto;
+    height: 92vh;
+    background: url('../assets/center/qbg.png') no-repeat;
+    background-size: 100% 100%;
+    padding: 0 0 4rem 0;
+}
+.title1{
+    font-size:1.1rem;
+    letter-spacing: .1rem;
+    text-align: center;
+    font-family:Source Han Sans CN;
+    padding: 1rem 0 0 0;
+    color:rgba(255,255,255,1);
+    
+}
 </style>
