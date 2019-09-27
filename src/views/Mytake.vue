@@ -4,7 +4,7 @@
             <img v-lazy="'http://www.shanshangdajiazu.com'+item.img" alt="" class="avathor">
             <div class="right">
                 <div class="text">{{item.c_name}}</div>
-                <div class="price">￥{{item.money}}</div>
+                <div class="price">价格： ￥{{item.money}}</div>
             </div>
         </div>
     </div>

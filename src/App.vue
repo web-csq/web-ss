@@ -1,14 +1,16 @@
 <template>
   <div id="app">
-    <transition name="slide-fade">
+    <!-- <transition name="slide-fade">
       <keep-alive v-if="$route.meta.keepAlive">
           <router-view/>
       </keep-alive>
     </transition>
     <transition name="slide-fade">
-      <router-view v-if="!$route.meta.keepAlive"/>
-    </transition>
-    
+      <router-view v-if="!$route.meta.keepAlive&&!isRouterAlive"/>
+    </transition> -->
+    <div v-if="isRouterAlive">
+        <router-view />
+    </div>
   </div>
 </template>
 
@@ -17,11 +19,22 @@
 export default {
   data(){
     return{
-
+      loading: false,
+      isRouterAlive:true,
     }
   },
+  provide(){
+      return {
+        reload:this.reload
+      }
+  },
   methods:{
-  
+    reload(){
+        this.isRouterAlive = false;
+        this.$nextTick(function () {
+          this.isRouterAlive = true;
+        })
+      }
   },
   created(){
    

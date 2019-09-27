@@ -22,7 +22,7 @@
             <div>第三名</div>
             <div>{{num3.earnings}} 元</div>
         </div>
-        <div class="box-home" style="background:#FFF;margin-top:0;display:block;">
+        <div class="box-home" style="background:#FFF;margin-top:0;display:block;padding: .1rem 0;">
             <div class="box" v-for="(item,index) in list" :key="index">
                 <van-row>
                     <van-col span="3">
@@ -33,10 +33,10 @@
                     <van-col span="4">
                         <img v-lazy="item.imgUrl" alt="" class="ava-img">
                     </van-col>
-                    <van-col span="6">
+                    <van-col span="8">
                         <div class="name">{{item.nickname}}</div>
                     </van-col>
-                    <van-col span="11">
+                    <van-col span="9">
                         <div class="salary">
                             {{item.earnings}} 元
                         </div>
@@ -299,6 +299,10 @@ export default {
     margin: 1rem 1rem;
     padding-bottom: .5rem;
 }
+.box:last-child{
+    border: 0;
+    padding-bottom: 0;
+}
 .num{
     font-size:1.2rem;
     margin: .7rem 0 0 .5rem;
@@ -312,6 +316,10 @@ export default {
     font-weight:400;
     color:rgba(51,51,51,1);
     margin: .8rem 0 0 0;
+    width: 7rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .salary{
     text-align: right;

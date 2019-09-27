@@ -1,5 +1,5 @@
 <template>
-    <div style="position:relative;top:0;left:0;">
+    <div style="position:relative;top:0;left:0;" v-if="show">
         <div class="title" style="font-size:1.2rem;">
             {{content1.c_name}}
         </div>
@@ -44,12 +44,13 @@
         <van-tabs v-model="activeName"
             line-height="2px"
             line-width="4rem"
+            :sticky="true"
         >
             <van-tab title="圈友好评" name="a">
             <div class="parent"  ref="wrapper">
             <div style="padding-top:1rem">
                 <div ></div>
-                <div class="wrap" v-for="(item,index) in content1.list" :key="index">
+                <div class="wrap" v-for="(item,index) in content1.list.slice(0,12)" :key="index">
                     <div style="display:flex;align-items:center">
                         <img v-lazy="item.img" >
                         <span>{{item.nickname}}</span>
@@ -144,7 +145,7 @@
 
 
         <!-- 评价弹出 -->
-        <van-popup v-model="commentShow" transition="fade">
+        <van-popup v-model="commentShow" transition="fade" :lock-scroll="false" :lazy-render="false">
             <div class="pop">
                 <img src="@/assets/index/comment.png" alt="">
                 <div class="comment">
@@ -172,7 +173,6 @@
 <script>
 import Scroll from 'better-scroll'
 
-
 export default {
     data(){
         return{
@@ -186,10 +186,16 @@ export default {
             value:0,
             eTime:"",
             isPlay:false,
-            content1:""
+            content1:"",
+            show:false
         }
     },
+    inject: ['reload'],
     methods:{
+         handleCommand(_command) {
+   //调用this.reload();
+                this.reload();
+        },
 
 
         play(){
@@ -272,11 +278,15 @@ export default {
                 course_id:that.content1.id
             }).then(res=>{
                 // console.log(res)
-                that.commentShow=false
+                
                 that.$toast.success(res.msg);
+                that.commentShow=false
                 setTimeout(()=>{
-                    that.$router.go(0)
-                },1200)
+
+                    that.handleCommand()
+                    //window.location.href=window.location.href+"?id="+10000*Math.random();
+
+                },1000)
                 
             })
 
@@ -314,8 +324,10 @@ export default {
                 if(res.code===200){
                     that.$toast.success(res.msg)
                     setTimeout(()=>{
-                        window.history.go(0)
-                    },1500)
+
+                        that.handleCommand()
+
+                    },1000)
                    
                 }else{
                     that.$toast.fail(res.msg)
@@ -347,6 +359,9 @@ export default {
                 console.log(res)
                 if(res.code===200){
                     that.content1=res.data
+                    setTimeout(()=>{
+                        that.show=true
+                    },500)
                 }
             })
         }
@@ -355,8 +370,9 @@ export default {
       this.getData()  
     },
     mounted(){
-        this.setScroll()
+        // this.setScroll()
         console.log(this.$route.query.cid)
+       
     }
 
 }
@@ -402,9 +418,9 @@ export default {
     border-bottom: 1px solid #ccc!important;
 }
 .parent{
-    width: 100%;
+    /* width: 100%;
     height: 92vh;
-    overflow-y:auto;
+    overflow-y:auto; */
 }
 .wrap{
     display: flex;
@@ -508,8 +524,8 @@ export default {
     left: 2rem;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 43vw;
-    height: 7rem;
+    width: 44vw;
+    height: 8rem;
     padding: 0.5rem;
     box-sizing: border-box;
 }

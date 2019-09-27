@@ -14,7 +14,7 @@
         v-model="show"
         round
         position="bottom"
-        :style="{ height: '36%' }"
+        :style="{ height: '35%' }"
         >
         <div class="floor1">
             <span>邀请方式</span>
@@ -36,7 +36,7 @@
                 复制链接
             </button>
         </div>
-        <div class="floor3" id="msg">
+        <div class="floor3" id="msg" style="width:70vw;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
             {{text}}
            <!-- <textarea type="hidden" ref="text" v-model="text" style="opacity: 0;" readonly="readonly"></textarea> -->
         </div>
@@ -89,7 +89,7 @@ export default {
                  setTimeout(()=>{
                      that.page=true
                     // that.load.close()
-                },600)
+                },1000)
             })
             that.text="http://www.shanshangdajiazu.com/ss/#/qrcode?uid="+uid
         },
@@ -98,7 +98,7 @@ export default {
             let data={
                 title: '善商大家族，有胆你就来。', // 分享标题
                 desc:"好好学习，天天向上，赶紧来学习吧，现在扫码还能拿到大大的红包。跟我一起加入善商大家族",
-                link: window.location.href+'?uid='+window.localStorage.uid, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                link: "http://www.shanshangdajiazu.com/ss/#/qrcode?uid="+that.$route.query.uid, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                 imgUrl: 'http://www.shanshangdajiazu.com/pay/logo.png', // 分享图标
             }
             that.$config();
@@ -188,7 +188,7 @@ export default {
     
 }
 .floor2{
-    font-size:1rem;
+    font-size:.8rem;
     font-family:PingFang-SC-Medium;
     font-weight:500;
     color:rgba(1,1,1,1);
@@ -201,6 +201,9 @@ export default {
     color:rgba(131,131,131,1);
     padding-left: 5rem;
     margin-top: 1rem;
+    width: 100%;
+    overflow: hidden;
+    
 }
 .floor3 p{
     line-height: 1.5rem;

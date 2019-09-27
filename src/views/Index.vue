@@ -4,7 +4,7 @@
     <mu-ripple color="#2196f3" :opacity="0.2" style="width:100vw;height:100vh">
       <img v-lazy="'http://www.shanshangdajiazu.com'+banner" alt="" style="width:100vw;height:100vh">
     </mu-ripple>
-    <div class="box-index" style="overflow:hidden;height:9rem;padding:0">
+    <div class="box-index" style="overflow:hidden;height:9rem;padding:0;width:84vw;">
       <div :style="`transform:translateY(${-1.7*num}rem)`" class="trans">
         <div class="box-line" v-for="(item,index) in list" :key="index">
           <img v-lazy="item.imgUrl" alt="">
@@ -19,7 +19,7 @@
     <h4 class="sub-title">老师示范 &nbsp; 学员跟练</h4>
 
     <div class="subbox">
-        <div class="wow bounceInDown" data-wow-delay="0.2s" style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="level<1?showPopup(1,content1.id):jumpStudy(content1.id)">
+        <div class="wow bounceInDown" data-wow-delay="0.2s" style="border-radius:6px;box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="level<1?showPopup(1,content1.id):jumpStudy(content1.id)">
           <img v-lazy="'http://www.shanshangdajiazu.com'+content1.img" alt="">
           <h4>爱享训练</h4>
           <p>认识自己，把握自己，爱自己</p>
@@ -27,12 +27,12 @@
 
 
 
-      <div class="wow bounceInDown" data-wow-delay="0.5s" style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="level>1?jumpStudy(content2.id):showMiddle(2)">
+      <div class="wow bounceInDown" data-wow-delay="0.5s" style="border-radius:6px;box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="level>1?jumpStudy(content2.id):showMiddle(2)">
         <img v-lazy="'http://www.shanshangdajiazu.com'+content2.img" alt="">
         <h4>动感强化训练</h4>
         <p>睡服她，让她欲罢 不能</p>
       </div>
-      <div class="wow bounceInDown" data-wow-delay="0.8s" style="box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="level>1?jumpStudy(content3.id):showMiddle(2)">
+      <div class="wow bounceInDown" data-wow-delay="0.8s" style="border-radius:6px;box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="level>1?jumpStudy(content3.id):showMiddle(2)">
         <img v-lazy="'http://www.shanshangdajiazu.com'+content3.img" alt="">
         <h4>情侣双休训练</h4>
         <p>解锁性爱的高阶玩法</p>

@@ -5,13 +5,13 @@
         <!-- </mu-ripple> -->
         <van-sticky>
             <div style="display:flex;justify-content:space-around;background:#fff;height:3rem;line-height:3rem;font-size:1rem; letter-spacing:.1rem;">
-                <span :style="position==='id1'?'border-bottom:3px solid #FFE181':''" @click="top('id1')">
+                <span ref="id1" @click="top('id1')">
                     项目介绍
                 </span>
-                <span :style="position==='id2'?'border-bottom:3px solid #FFE181':''"  @click="top('id2')">
+                <span ref="id2" @click="top('id2')">
                     适合人群
                 </span>
-                <span :style="position==='id3'?'border-bottom:3px solid #FFE181':''"  @click="top('id3')">
+                <span ref="id3"  @click="top('id3')">
                     圈友指南
                 </span>
             </div>
@@ -19,29 +19,17 @@
         </van-sticky>
                 
 
-
-
-
-        
-                    
-
-                    <div id="id1" ></div>
-                    <div style="width:100vw;height:3rem;"></div>
-                    <div >
-                        <img src="@/assets/center/intr.png" alt="" class="dao">
-                    </div>
-                    
-              
-
-                
-
-          
-                    
-                    <div id="id2"  ref='id2'></div>
-                    <div style="width:100vw;height:3rem;"></div>
-                    <div >
-                        <img src="@/assets/center/person.png" alt="" class="dao">
-                    </div>
+            <div id="id1" ></div>
+            <div >
+                <img src="@/assets/center/intr.png" alt="" class="dao">
+            </div>
+            
+  
+            <div id="id2"></div>
+            <div style="width:100vw;height:3rem;"></div>
+            <div >
+                <img src="@/assets/center/person.png" alt="" class="dao">
+            </div>
                     
               
 
@@ -83,7 +71,7 @@
                     </h5>
                 </div> -->
                    
-                    <div id="id3" ref='id3'></div>
+                    <div id="id3"></div>
                      <div style="width:100vw;height:3rem;"></div>
                     <div >
                         <img src="@/assets/center/dao.png" alt="" class="dao">
@@ -113,7 +101,7 @@
         v-model="show"
         round
         position="bottom"
-        :style="{ height: '18%' }"
+        :style="{ height: '20%' }"
         >
         <div style="height:100%;background: #fff;">
 
@@ -141,7 +129,6 @@
 
 
 <script>
-
 // import Scroll from 'better-scroll'
 export default {
     data(){
@@ -149,7 +136,7 @@ export default {
             info:{},
             active:"",
             show:false,
-            position:"id1",
+            posi:"id1",
             scroll:"",
             page:false
         }
@@ -165,22 +152,66 @@ export default {
             this.$router.push('/paysuccess')
         },
         top(id){
-            this.position=id
-           document.getElementById(id).scrollIntoView()
+           let that=this
+           this.$nextTick(()=>{
+               console.log(that.$refs)
+               for(let item in that.$refs){
+                   if(item==id){
+                       that.$refs[item].style['borderBottom']="3px solid rgb(255, 225, 129)"
+                       console.log(that.$refs[item].style['borderBottom'])
+                   }else{
+                       that.$refs[item].style['borderBottom']="0"
+                   }
+               }
+               document.getElementById(id).scrollIntoView(true)
+           })
+           
         },
-        handleScroll(e){
-
+        handleScroll(){
+            let that=this
             let a = document.documentElement.scrollTop || document.body.scrollTop;
-            
-            if(a<2103){
-                this.position='id1'
-            }
-            if(a>2110){
-                this.position='id2'
-            }
-            if(a>2700){
-                this.position='id3'
-            }
+            console.log(a)
+            this.$nextTick(()=>{
+               console.log(that.$refs)
+               for(let item in that.$refs){
+                    if(a<1944){
+                         that.$refs['id1'].style['borderBottom']="3px solid rgb(255, 225, 129)"
+                         that.$refs['id2'].style['borderBottom']="0"
+                         that.$refs['id3'].style['borderBottom']="0"
+                    }else if (2636>a && a>2051){
+                         that.$refs['id1'].style['borderBottom']="0"
+                         that.$refs['id2'].style['borderBottom']="3px solid rgb(255, 225, 129)"
+                         that.$refs['id3'].style['borderBottom']="0"
+                    }else if(a>2637){
+
+                         that.$refs['id1'].style['borderBottom']="0"
+                         that.$refs['id2'].style['borderBottom']="0"
+                         that.$refs['id3'].style['borderBottom']="3px solid rgb(255, 225, 129)"
+                    }
+                    
+
+
+
+                //    if(item==id){
+                //        that.$refs[item].style['borderBottom']="3px solid rgb(255, 225, 129)"
+                //        console.log(that.$refs[item].style['borderBottom'])
+                //    }else{
+                //        that.$refs[item].style['borderBottom']="0"
+                //    }
+               }
+            //    document.getElementById(id).scrollIntoView(true)
+           })
+
+
+            // if(a<1944){
+            //     this.posi='id1'
+            // }
+            // if(a>1944){
+            //     this.posi='id2'
+            // }
+            // if(a>2638){
+            //     this.posi='id3'
+            // }
 
         },
         getData(){
@@ -214,7 +245,6 @@ export default {
         this.$config()
     },
     mounted () {
-
         window.addEventListener('scroll', this.handleScroll)
        
     }
