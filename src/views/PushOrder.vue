@@ -4,7 +4,7 @@
             <img src="@/assets/index/touxiang.png" alt="" class="img">
             <div class="you">
                 <div>{{item.title}}</div>
-                <div>课程：￥{{item.title}}</div>
+                <div>佣金：{{item.money}}</div>
                 <div>购买人：{{item.buy_name}}</div>
                 <div>购买时间：{{item.paytime}}</div>
             </div>
@@ -23,7 +23,7 @@ export default {
         getData(){
             let that=this;
             that.$post('/ally_details',{
-                uid:8||window.localStorage.uid,
+                uid:window.localStorage.uid,
                 type:3
             }).then(res=>{
                 that.list=res.data

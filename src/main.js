@@ -41,7 +41,8 @@ import {
   Radio,
   Lazyload,
   Cell,CellGroup,
-  Sticky 
+  Sticky ,
+  Dialog 
 } from 'vant';
 import 'vant/lib/index.css';
 Vue.use(Swipe).use(SwipeItem)
@@ -53,7 +54,8 @@ Vue.use(Swipe).use(SwipeItem)
 .use(Slider)
 .use(RadioGroup).use(Radio)
 .use(CellGroup).use(Cell)
-.use(Sticky);
+.use(Sticky)
+.use(Dialog);
 
 Vue.use(Lazyload,{
   // loading:"/assets/index/lazy.png",
@@ -87,7 +89,7 @@ router.beforeEach((to, from, next) => {
   if (to.path == '/author') {
     //进入授权页面
 
-    if (!window.localStorage.openId || window.localStorage.openId == '' || !window.localStorage.uid || window.localStorage.uid == '') {
+    if (!window.sessionStorage.openId || window.sessionStorage.openId == '' || !window.localStorage.uid || window.localStorage.uid == '') {
 
       next();
 
@@ -97,7 +99,7 @@ router.beforeEach((to, from, next) => {
       
     }
   }else {
-    if (!window.localStorage.openId || window.localStorage.openId == '' || !window.localStorage.uid || window.localStorage.uid == '') {
+    if (!window.sessionStorage.openId || window.sessionStorage.openId == '' || !window.localStorage.uid || window.localStorage.uid == '') {
       window.localStorage.authBeforeFullPath = window.location.href;
       next({ path: '/author' });
     } else {
@@ -129,7 +131,9 @@ Vue.prototype.appId='wxa6acc23ca992289c';
 Vue.prototype.$pay=pay;
 Vue.prototype.$config=config;
 
+import $ from 'jquery';
 
+Vue.prototype.$=$;
 
 
 

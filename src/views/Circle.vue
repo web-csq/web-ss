@@ -3,7 +3,7 @@
         <div class="top">
             <img v-lazy="info.imgUrl" alt="" class="ava">
             <span class="uname">{{info.nickname}}</span>
-            <div class="level">健身达人</div>
+            <div class="level">{{info.levelname}}</div>
             <div style="width:45%;text-align: right;" @click="jumpPush">
                立即推广
             </div>
@@ -107,9 +107,25 @@ export default {
             this.$router.push('/client')
         },
         jumpSubList(){
+            let that=this
+            if(!that.info.recommend){
+                 this.$dialog.alert({
+                    title: '提示',
+                    message: '暂无成功邀请的推广员，请先邀请好友成为推广员'
+                    });
+                    return;
+            }
             this.$router.push('/sublist')
         },
         jumpPushOrder(){
+            let that=this
+            if(!that.info.order){
+                 this.$dialog.alert({
+                    title: '提示',
+                    message: '暂无地址'
+                });
+                    return;
+            }
             this.$router.push('/pushorder')
         },
         jumpDetail(){

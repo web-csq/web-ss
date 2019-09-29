@@ -5,7 +5,7 @@
       <img v-lazy="'http://www.shanshangdajiazu.com'+banner" alt="" style="width:100vw;height:100vh">
     </mu-ripple>
     <div class="box-index" style="overflow:hidden;height:9rem;padding:0;width:84vw;">
-      <div :style="`transform:translateY(${-1.7*num}rem)`" class="trans">
+      <div :style="`transform:translateY(${-1.69*num}rem)`" class="trans">
         <div class="box-line" v-for="(item,index) in list" :key="index">
           <img v-lazy="item.imgUrl" alt="">
           <div>
@@ -16,7 +16,7 @@
     </div>
 
     <h2 class="title">{{sort1.sort_name}}</h2>
-    <h4 class="sub-title">老师示范 &nbsp; 学员跟练</h4>
+    <h4 class="sub-title" style="font-size:.8rem;">老师示范 &nbsp; 学员跟练</h4>
 
     <div class="subbox">
         <div class="wow bounceInDown" data-wow-delay="0.2s" style="border-radius:6px;box-shadow:0px 4px 10px 0px rgba(153,174,223,0.57);width:31vw" @click="level<1?showPopup(1,content1.id):jumpStudy(content1.id)">
@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <div style="font-size:1.4rem;font-family:SourceHanSansCN-Regular;font-weight:400;color:rgba(255,73,74,1);padding-left:1rem">
+    <div style="font-size:1.1rem;font-family:SourceHanSansCN-Regular;font-weight:400;color:rgba(255,73,74,1);padding-left:1rem">
       ￥{{money1}}
     </div>
 
@@ -100,13 +100,13 @@
         <div style="background:transparent;height:2rem;"> 
           <img src="@/assets/index/del.png" style="width:1.8rem;height:1.8rem;float:right;" @click="hide">
         </div>
-        <img src="@/assets/index/tip.png" alt="" style="width:75%;margin:0 auto;display:block;" @click="showPopup(2)">
+        <img src="@/assets/index/tip2.png" alt="" style="width:75%;margin:0 auto;display:block;" @click="showPopup(2)">
       </div>
     </van-popup>
 
     <!-- 答题 -->
     <van-popup v-model="anwserShow" transition="fade">
-      <div style="position:relative;top:0;left:0;width:70vw;">
+      <div style="position:relative;top:0;left:0;width:75vw;">
         <img src="@/assets/index/del.png" style="width:1.2rem;height:1.2rem;position:absolute;top:0.5rem;right:0.5rem" @click="hide">
         <img src="@/assets/index/answerbg.png" style="width:100%;" >
         <div class="answer-title">
@@ -281,8 +281,6 @@
   </div>
 </template>
 
-
-
 <script>
 import { setTimeout, setInterval, clearInterval } from 'timers';
 import { WOW } from 'wowjs'
@@ -291,20 +289,42 @@ export default {
     return{
       show:false,
       list:[
-        {id:1,nickname:"新长征路上",imgUrl:require('../assets/index/go1.png')},
-        {id:2,nickname:"哈哈哈哈",imgUrl:require('../assets/index/go1.png')},
-        {id:3,nickname:"你好水电费",imgUrl:require('../assets/index/go1.png')},
-        {id:4,nickname:"速度佛环",imgUrl:require('../assets/index/go1.png')},
-        {id:5,nickname:"是否就是你的复垦",imgUrl:require('../assets/index/go1.png')},
-        {id:6,nickname:"胜多负少的",imgUrl:require('../assets/index/go1.png')},
-        {id:7,nickname:"新长征路上",imgUrl:require('../assets/index/go1.png')},
-        {id:8,nickname:"哈哈哈哈",imgUrl:require('../assets/index/go1.png')},
-        {id:9,nickname:"你好水电费",imgUrl:require('../assets/index/go1.png')},
-        {id:10,nickname:"速度佛环",imgUrl:require('../assets/index/go1.png')},
-        {id:11,nickname:"速度佛环",imimgUrlg:require('../assets/index/go1.png')},
-        {id:12,nickname:"是否就是你的复垦",imgUrl:require('../assets/index/go1.png')},
-        {id:13,nickname:"胜多负少的",imgUrl:require('../assets/index/go1.png')},
-        {id:14,nickname:"新长征路上",imgUrl:require('../assets/index/go1.png')},
+        {id:1,nickname:"孤单***的温柔",imgUrl:require('../assets/index/go1.png')},
+        {id:2,nickname:"醉酒***鞭名马",imgUrl:require('../assets/index/yangyang.jpg')},
+        {id:3,nickname:"敬你***春风野马",imgUrl:require('../assets/index/vuebg.png')},
+        {id:4,nickname:"守我***旧时约",imgUrl:require('../assets/index/touxiang2.png')},
+        {id:5,nickname:"是否就***是你的复垦",imgUrl:require('../assets/index/touxiang.png')},
+        {id:6,nickname:"夏至未***至",imgUrl:require('../assets/index/teacher3.png')},
+        {id:7,nickname:"新长***征路上",imgUrl:require('../assets/index/teacher.png')},
+        {id:8,nickname:"青***笙挽歌余梦初",imgUrl:require('../assets/index/go3.png')},
+        {id:9,nickname:"你好水***电费",imgUrl:require('../assets/index/floor2.png')},
+        {id:10,nickname:"酒街***少年他是暖阳？",imgUrl:require('../assets/index/edit.png')},
+        {id:11,nickname:"风***是甜的",imimgUrlg:require('../assets/index/comment.png')},
+        {id:12,nickname:"是否***就是你的复垦",imgUrl:require('../assets/index/btn-bg.png')},
+        {id:13,nickname:"温柔尝***尽了吗",imgUrl:require('../assets/index/dui.png')},
+        {id:14,nickname:"清风***挽发",imgUrl:require('../assets/center/person.png')},
+        {id:15,nickname:"听风***执酒",imgUrl:require('../assets/center/lvling.png')},
+        {id:16,nickname:"一语***呢喃",imgUrl:require('../assets/center/list.png')},
+        {id:17,nickname:"拂風一身***ㄡ满",imgUrl:require('../assets/center/ling.png')},
+        {id:18,nickname:"醉酒***鞭名马",imgUrl:require('../assets/center/laba.png')},
+        {id:19,nickname:"一抹泪***光ヽ诉尽百般思念",imgUrl:require('../assets/center/king.png')},
+        {id:20,nickname:"清秋***落叶聚还散",imgUrl:require('../assets/center/intr.png')},
+        {id:21,nickname:"怀抱***清风",imgUrl:require('../assets/index/go1.png')},
+        {id:22,nickname:"绾起***梨花月",imgUrl:require('../assets/index/go1.png')},
+        {id:23,nickname:"浅***若清风",imgUrl:require('../assets/index/go1.png')},
+        {id:24,nickname:"三***代同堂。",imgUrl:require('../assets/center/huangshu.png')},
+        {id:25,nickname:"是***我家的人来",imimgUrlg:require('../assets/index/go1.png')},
+        {id:26,nickname:"宝贝一***家亲",imgUrl:require('../assets/center/dao.png')},
+        {id:27,nickname:"看***宝宝的进来",imgUrl:require('../assets/index/go1.png')},
+        {id:28,nickname:"恭喜发***财",imgUrl:require('../assets/center/centerbg.png')},
+        {id:29,nickname:" we are*** 伐木累",imgUrl:require('../assets/index/go1.png')},
+        {id:30,nickname:"中***国美食协会",imgUrl:require('../assets/center/book.png')},
+        {id:31,nickname:"快乐***家族",imgUrl:require('../assets/index/go1.png')},
+        {id:32,nickname:"生活***过得像句费话",imgUrl:require('../assets/center/bg_detail.png')},
+        {id:33,nickname:"或***许、很美",imgUrl:require('../assets/index/go1.png')},
+        {id:34,nickname:"爱***如柠檬滋味酸",imgUrl:require('../assets/center/bei.png')},
+        {id:35,nickname:"已风干***的迷茫",imgUrl:require('../assets/index/go1.png')},
+        {id:36,nickname:"亿人不***及你一人",imgUrl:require('../assets/center/sex.png')},
       ],
       timer:"",
       num:0,
@@ -434,7 +454,7 @@ export default {
         that.anshow2=false;
         that.anshow3=false;
         that.anshow4=false;
-        that.$router.push('/study?cid='+that.sort3.id)
+        that.$router.push('/fackback2?cid='+that.sort3.id)
       }
  
     },
@@ -474,8 +494,7 @@ export default {
       console.log(data)
       
       that.$pay('/buy_courses',data,that).then(()=>{
-        
-       
+        that.$router.push('/paysuccess')
       })
 
 
@@ -519,9 +538,11 @@ export default {
           // if(that.num==that.list.length-4){
           //   add=-1
           // }
-          console.log(that.num,that.list.length)
+          // console.log(that.num,that.list.length)
           if(that.num==that.list.length-5){
+
              clearInterval(that.timer)
+
           }
           
         }
@@ -566,7 +587,8 @@ export default {
       })
       that.$get('/carousel').then(res=>{
         console.log(res)
-        that.list=res.data
+        // that.list=res.data
+        that.list.sort(()=>0.5-Math.random())
       })
 
     }

@@ -56,13 +56,22 @@ export default new Router({
       component: () => import('./views/Study')
     },
     {
-      path: '/fackback',
-      name: 'fackback',
+      path: '/fackback1',
+      name: 'fackback1',
       meta:{
         keepAlive:false,
         title:"反馈"
       },
-      component: () => import('./views/Fackback.vue')
+      component: () => import('./views/Fackback1.vue')
+    },
+    {
+      path: '/fackback2',
+      name: 'fackback2',
+      meta:{
+        keepAlive:false,
+        title:"反馈"
+      },
+      component: () => import('./views/Fackback2.vue')
     },
     {
       path: '/paysuccess',

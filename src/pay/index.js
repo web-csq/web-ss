@@ -68,7 +68,7 @@ export const pay=(requestUrl="", data={},that)=> {
                         // }
                         success: function (res) {
                             that.hide()
-                            that.$router.push('/paysuccess')
+                            
                             resolve()
                             
                         },
@@ -76,8 +76,6 @@ export const pay=(requestUrl="", data={},that)=> {
                             that.$toast.fail('支付取消')
                             that.hide()
                             
-                           
-                            resolve()
                         },
                         fail: function (res) {
                             that.$toast.fail('支付失败')

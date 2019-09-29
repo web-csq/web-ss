@@ -1,24 +1,31 @@
 <template>
     <div>
-        <div style="width:84vw;margin:0 auto;" class="search">
-            <van-search
-                v-model="value"
-                placeholder="请输入用户名称"
-                show-action
-                shape="round"
-                @search="onSearch"
-                >
-                <div slot="action" @click="onSearch">搜索</div>
-            </van-search>
-        </div>
-        <div class="box-index" style="display:flex;justify-content:space-between;align-items:center;width:95vw;padding:1rem" v-for="(item,index) in list" :key="index">
-            <img v-lazy="item.imgUrl" alt="" class="img">
-            <div class="uname">{{item.nickname}}</div>
-            <div class="money">
-                关注时间：{{item.addtime}}
+        <div>
+            <div style="width:84vw;margin:0 auto;" class="search">
+                <van-search
+                    v-model="value"
+                    placeholder="请输入用户名称"
+                    show-action
+                    shape="round"
+                    @search="onSearch"
+                    >
+                    <div slot="action" @click="onSearch">搜索</div>
+                </van-search>
+            </div>
+            <div class="box-index" style="display:flex;justify-content:space-between;align-items:center;width:95vw;padding:1rem" v-for="(item,index) in list" :key="index">
+                <img v-lazy="item.imgUrl" alt="" class="img">
+                <div class="uname">{{item.nickname}}</div>
+                <div class="money">
+                    关注时间：{{item.addtime}}
+                </div>
             </div>
         </div>
-        
+        <div v-if="show" style="font-size:1rem;color:#ccc;text-align:center">
+            <img src="../assets/index/yun.png" style="width:100vw;"/>
+            <div>
+                没有此类客户
+            </div>
+        </div>
     </div>
 </template>
 
@@ -27,7 +34,9 @@ export default {
     data(){
         return{
             value:"",
-            list:[]
+            list:[],
+            show:false
+            
         }
     },
      methods:{
@@ -41,7 +50,11 @@ export default {
                 type:1
             }).then(res=>{
                 console.log(res)
+                
                 that.list=res.data
+                if(res.data.length==0){
+                    that.show=true
+                }
             })
         }
     },

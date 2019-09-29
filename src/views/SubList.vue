@@ -37,7 +37,7 @@ export default {
      getData(){
          let that=this;
          that.$post('/ally_details',{
-             uid:8||window.localStorage.uid,
+             uid:window.localStorage.uid,
              type:2
          }).then(res=>{
              console.log(res)

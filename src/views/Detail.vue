@@ -5,13 +5,13 @@
         <!-- </mu-ripple> -->
         <van-sticky>
             <div style="display:flex;justify-content:space-around;background:#fff;height:3rem;line-height:3rem;font-size:1rem; letter-spacing:.1rem;">
-                <span ref="id1" @click="top('id1')">
+                <span ref="xiangmu1" class="sp" >
                     项目介绍
                 </span>
-                <span ref="id2" @click="top('id2')">
+                <span ref="xiangmu2" class="sp">
                     适合人群
                 </span>
-                <span ref="id3"  @click="top('id3')">
+                <span ref="xiangmu3" class="sp">
                     圈友指南
                 </span>
             </div>
@@ -19,13 +19,13 @@
         </van-sticky>
                 
 
-            <div id="id1" ></div>
+            <div id="posi1" ></div>
             <div >
                 <img src="@/assets/center/intr.png" alt="" class="dao">
             </div>
             
   
-            <div id="id2"></div>
+            <div id="posi2"></div>
             <div style="width:100vw;height:3rem;"></div>
             <div >
                 <img src="@/assets/center/person.png" alt="" class="dao">
@@ -71,7 +71,7 @@
                     </h5>
                 </div> -->
                    
-                    <div id="id3"></div>
+                    <div id="posi3"></div>
                      <div style="width:100vw;height:3rem;"></div>
                     <div >
                         <img src="@/assets/center/dao.png" alt="" class="dao">
@@ -151,56 +151,120 @@ export default {
         jumpPaySuccess(){
             this.$router.push('/paysuccess')
         },
-        top(id){
+        top1(e){
+            console.log(e.target)
            let that=this
            this.$nextTick(()=>{
-               console.log(that.$refs)
                for(let item in that.$refs){
-                   if(item==id){
-                       that.$refs[item].style['borderBottom']="3px solid rgb(255, 225, 129)"
-                       console.log(that.$refs[item].style['borderBottom'])
-                   }else{
-                       that.$refs[item].style['borderBottom']="0"
-                   }
+                  that.$refs[item].style['borderBottom']="0";
                }
-               document.getElementById(id).scrollIntoView(true)
+               document.getElementById('posi1').scrollIntoView(true)
+           })
+           
+        },
+        top2(e){
+            console.log(e.target)
+           let that=this
+           this.$nextTick(()=>{
+               for(let item in that.$refs){
+                  that.$refs[item].style['borderBottom']="0";
+               }
+               document.getElementById('posi2').scrollIntoView(true)
+           })
+           
+        },
+        top3(e){
+            console.log(e.target)
+           let that=this
+           this.$nextTick(()=>{
+               for(let item in that.$refs){
+                  that.$refs[item].style['borderBottom']="0";
+               }
+               document.getElementById('posi3').scrollIntoView(true)
            })
            
         },
         handleScroll(){
             let that=this
             let a = document.documentElement.scrollTop || document.body.scrollTop;
-            console.log(a)
-            this.$nextTick(()=>{
-               console.log(that.$refs)
-               for(let item in that.$refs){
-                    if(a<1944){
-                         that.$refs['id1'].style['borderBottom']="3px solid rgb(255, 225, 129)"
-                         that.$refs['id2'].style['borderBottom']="0"
-                         that.$refs['id3'].style['borderBottom']="0"
-                    }else if (2636>a && a>2051){
-                         that.$refs['id1'].style['borderBottom']="0"
-                         that.$refs['id2'].style['borderBottom']="3px solid rgb(255, 225, 129)"
-                         that.$refs['id3'].style['borderBottom']="0"
-                    }else if(a>2637){
 
-                         that.$refs['id1'].style['borderBottom']="0"
-                         that.$refs['id2'].style['borderBottom']="0"
-                         that.$refs['id3'].style['borderBottom']="3px solid rgb(255, 225, 129)"
+            that.$nextTick(()=>{
+
+                let top1=a-document.getElementById('posi1').offsetTop;
+                let top2=a-document.getElementById('posi2').offsetTop;
+                let top3=a-document.getElementById('posi3').offsetTop;
+
+                if(top1<1119){
+
+                    for(let item in that.$refs){
+                        that.$refs[item].style['borderBottom']="0";
                     }
-                    
+                    that.$refs.xiangmu1.style['borderBottom']="3px solid rgb(255, 225, 129)";
+
+                }
+               
+                if(top2>-55){
+                    for(let item in that.$refs){
+                        that.$refs[item].style['borderBottom']="0";
+                    }
+                     that.$refs.xiangmu2.style['borderBottom']="3px solid rgb(255, 225, 129)"
+                }
+                if(top3>-60){
+                    for(let item in that.$refs){
+                        that.$refs[item].style['borderBottom']="0";
+                    }
+                     that.$refs.xiangmu3.style['borderBottom']="3px solid rgb(255, 225, 129)"
+                }
+
+                that.$(that.$refs.xiangmu1).bind('click',function (){
+                    if(document.documentElement.scrollTop){
+                        console.log(document.documentElement.scrollTop=document.getElementById('posi1').offsetTop-50)
+                    }else{
+                        console.log(document.body.scrollTop=document.getElementById('posi1').offsetTop-50)
+                    } 
+                })
+                that.$(that.$refs.xiangmu2).bind('click',function (){
+                    if(document.documentElement.scrollTop){
+                        console.log(document.documentElement.scrollTop=document.getElementById('posi2').offsetTop)
+                    }else{
+                        console.log(document.body.scrollTop=document.getElementById('posi2').offsetTop)
+                    }
+                })
+                that.$(that.$refs.xiangmu3).bind('click',function (){
+                    if(document.documentElement.scrollTop){
+                        console.log(document.documentElement.scrollTop=document.getElementById('posi3').offsetTop)
+                    }else{
+                        console.log(document.body.scrollTop=document.getElementById('posi3').offsetTop)
+                    }
+                   
+                })
+                
+            })
 
 
 
-                //    if(item==id){
-                //        that.$refs[item].style['borderBottom']="3px solid rgb(255, 225, 129)"
-                //        console.log(that.$refs[item].style['borderBottom'])
-                //    }else{
-                //        that.$refs[item].style['borderBottom']="0"
-                //    }
-               }
-            //    document.getElementById(id).scrollIntoView(true)
-           })
+
+
+           
+            // this.$nextTick(()=>{
+            //    for(let item in that.$refs){
+            //         if(a<1944){
+            //              that.$refs['xiangmu1'].style['borderBottom']="3px solid rgb(255, 225, 129)"
+            //              that.$refs['xiangmu2'].style['borderBottom']="0"
+            //              that.$refs['xiangmu3'].style['borderBottom']="0"
+            //         }else if (2636>a && a>2051){
+            //              that.$refs['xiangmu1'].style['borderBottom']="0"
+            //              that.$refs['xiangmu2'].style['borderBottom']="3px solid rgb(255, 225, 129)"
+            //              that.$refs['xiangmu3'].style['borderBottom']="0"
+            //         }else if(a>2637){
+
+            //              that.$refs['xiangmu1'].style['borderBottom']="0"
+            //              that.$refs['xiangmu2'].style['borderBottom']="0"
+            //              that.$refs['xiangmu3'].style['borderBottom']="3px solid rgb(255, 225, 129)"
+            //         }
+            //    }
+           
+        //    })
 
 
             // if(a<1944){
@@ -231,7 +295,9 @@ export default {
                 price:that.info.price,
                 type:"WeChat"
             }
-            that.$pay('/buy_courses',data,that) 
+            that.$pay('/buy_courses',data,that).then(()=>{
+                that.$router.push('/fackback1')
+            })
         },
         aliPay(){
             // let money=this.info.price
@@ -383,7 +449,9 @@ export default {
 .container >>> .mu-ripple-wrapper{
     height: 91%!important;
 }
-
+.sp{
+    
+}
 
 
 

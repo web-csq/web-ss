@@ -39,7 +39,7 @@ export default {
                         code:window.localStorage.code
                     }).then((res)=>{
                         console.log(res)
-                        window.localStorage.openId=res.data.openid
+                        window.sessionStorage.openId=res.data.openid
                         window.localStorage.uid=res.data.id
                     
                         window.location.href=window.localStorage.authBeforeFullPath

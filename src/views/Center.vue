@@ -3,7 +3,7 @@
         <div class="bg">
             <img v-lazy="info.imgUrl" alt="">
             <div class="name">{{info.nickname}}</div>
-            <div class="level" v-if="info.levelname">{{info.levelname}}</div>
+            <div class="level" v-if="info.level>1">{{info.levelname}}</div>
         </div>
         <div class="box-index" style="padding:1rem;width:85vw;">
             <div @click="jumpMyTake">
@@ -56,21 +56,22 @@ export default {
             info:{},
             middleShow:false,
             show:false,
-            load:""
+            load:"",
+            level:-1,
         }
     },
     methods:{
         jumpMyTake(){
-            if(this.info.level<2){
-                this.middleShow=true
-                return;
-            }
+            // if(this.info.level<1){
+            //     this.middleShow=true
+            //     return;
+            // }
 
             this.$router.push('/mytake')
         },
         jumpCircle(){
             if(this.info.level<2){
-                this.middleShow=true
+                this.middleShow=true;
                 return;
             }
             this.$router.push('/circle')
@@ -80,6 +81,7 @@ export default {
             that.$post('/refresh',{uid:window.localStorage.uid}).then(res=>{
                 console.log(res)
                 that.info=res.data;
+               
                 setTimeout(()=>{
                     // that.load.close()
                 },500)

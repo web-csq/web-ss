@@ -178,21 +178,6 @@ export default {
     color:rgba(157,157,157,1);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .text5{
     font-size:1rem;
     font-family:SourceHanSansCN-Regular;
@@ -205,7 +190,9 @@ export default {
     align-self: flex-end;
 }
 
+
 .box-index:last-child{
     margin-bottom: 2rem;
 }
+
 </style>

@@ -1,7 +1,10 @@
 <template>
     <div style="text-align:left">
         <div class="balance">
-            * 提现所需手续费 0.45 元
+            * 服务费按照单笔交易金额的0.7%收取
+        </div>
+         <div class="balance1">
+            * 可提现金额 {{money}} 元
         </div>
         <div class="box-index" style="width:90vw;">
         <div class="box">
@@ -44,7 +47,7 @@ export default {
     data(){
         return {
             txmoney:"",
-            money:"",
+            money:0,
             name:"",
             bank:"",
             bankname:"",
@@ -92,6 +95,7 @@ export default {
         }
     },
     created(){
+        this.money=this.$route.query.money
         this.getMoney()
     }
 }
@@ -110,8 +114,21 @@ export default {
     font-weight:400;
     color:#FF3535;
     line-height:61px;
-    text-align: center;
-
+    text-align: left;
+    width: 56vw;
+    margin: 0 auto;
+    white-space: nowrap;
+}
+.balance1{
+    font-size:17px;
+    font-family:SourceHanSansCN-Regular;
+    font-weight:400;
+    color:#D3963A;
+    line-height:7px;
+    text-align: left;
+    width: 57vw;
+    margin: 0 auto;
+    white-space: nowrap;
 }
 .box{
     padding: 1.2rem 0.95rem 0rem;

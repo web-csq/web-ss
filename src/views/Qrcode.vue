@@ -1,16 +1,15 @@
 <template>
-    <div class="container" v-if="page">
+    <div v-if="page" >
+    <div class="container" ref="imageDom">
         <table></table>
         <div style="float: right;margin:27.7rem 1.5rem 0 0rem;">
             <img v-lazy="'http://www.shanshangdajiazu.com'+qrcode" alt="" class="img">
         </div>
-        
-            
-        <button class="btn" @click="showPop">
+    </div>
+     <button class="btn" @click="showPop">
             邀请方式
         </button>
-        
-        <van-popup
+     <van-popup
         v-model="show"
         round
         position="bottom"
@@ -47,7 +46,8 @@
 
 <script>
   import Clipboard from 'clipboard';
-  import wx from 'weixin-js-sdk'
+  import wx from 'weixin-js-sdk';
+  import html2canvas from "html2canvas"
 export default {
     data(){
         return{
@@ -170,7 +170,7 @@ export default {
     color:rgba(83,193,35,1);
     padding: .2rem .9rem;
     display: block;
-    margin: 36rem auto 2rem;
+    margin: 1rem auto 2rem;
 }
 .floor1{
     font-size:1rem;

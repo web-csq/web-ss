@@ -24,6 +24,8 @@ const axios =Axios.create({
     }
 })
 
+
+
 export const get=(url,params={})=>{
 
     return new Promise((resolve,reject)=>{
@@ -32,6 +34,8 @@ export const get=(url,params={})=>{
     })
     
 }
+
+
 export const post=(url,data={})=>{
     return new Promise((resolve,reject)=>{
        axios.post(url,qs.stringify(data)).then(res=>resolve(res)).catch(err=>reject(err))

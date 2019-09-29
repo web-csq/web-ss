@@ -40,25 +40,29 @@
         </p>
         <p class="p">致力打造中国领先的专注于家庭幸福领域培训进化平台，以助人达成目标，共创美好未来为核心价值理念，旨在造就家庭更加和谐幸福。
         </p> -->
-
-        <van-tabs v-model="activeName"
-            line-height="2px"
-            line-width="4rem"
-            :sticky="true"
-        >
-            <van-tab title="圈友好评" name="a">
-            <div class="parent"  ref="wrapper">
-            <div style="padding-top:1rem">
-                <div ></div>
-                <div class="wrap" v-for="(item,index) in content1.list.slice(0,12)" :key="index">
-                    <div style="display:flex;align-items:center">
-                        <img v-lazy="item.img" >
-                        <span>{{item.nickname}}</span>
-                    </div>
-                    <div class="text">
-                        {{item.content}}
-                    </div>
+        <van-sticky>
+            <div style="display:flex;justify-content:space-around;background:#fff;height:3rem;line-height:3rem;font-size:1rem; letter-spacing:.1rem;">
+                <span ref="xiangmu1" class="sp" style="border-bottom: 3px solid rgb(255, 225, 129);">
+                    圈友好评
+                </span>
+                <span ref="xiangmu2" class="sp">
+                    问题反馈
+                </span>
+            </div>
+        </van-sticky>
+        <div id='posi'></div>
+            <div class="wrap" v-for="(item,index) in content1.list" :key="index">
+                <div style="display:flex;align-items:center">
+                    <img v-lazy="item.img" >
+                    <span>{{item.nickname}}</span>
                 </div>
+                <div class="text">
+                    {{item.content}}
+                </div>
+            </div>
+            <div v-if="listShow" style="height:120vh;">
+                
+            </div>
                 <!-- <div class="wrap">
                     <div style="display:flex;align-items:center">
                         <img src="@/assets/index/banner.png" >
@@ -104,44 +108,36 @@
                         上了体魄私教训练馆之后我对嗳嗳的理解更加系统科学，嗳嗳应该是一个阳光化的，而不是传统那些认为嗳嗳是不干净的话题。 那些说西方嗳嗳开放的，大概是不了解西方嗳嗳文化，婚前多尝试，婚后很忠诚，不像我们国家，婚前一片空，婚后乱哄哄。所以路漫漫，还需要很多人一起努力让嗳嗳阳光化。
                     </div>
                 </div> -->
-                <div style="width:100vw;height:1rem"></div>
-            </div>
-            </div>
+           
 
-
-            
-            </van-tab>
-            <van-tab title="问题反馈" name="b">
-               
-                 <div class="bg">
-                     <div class="title1">
-                         * 请认真填写以下信息
-                     </div>
-                    <div class="line">
-                        <span>姓名</span>
-                        <input type="text" placeholder="请输入本人姓名" v-model.trim="uname">
-                    </div>
-                    <div class="line">
-                        <span>手机号</span>
-                        <input type="text" placeholder="请输入本人手机号" v-model.trim="phone">
-                    </div>
-                    <div class="line">
-                        <span>微信号</span>
-                        <input type="text" placeholder="请输入本人微信号" v-model.trim="weixin">
-                    </div>
-                    <div class="line" style="flex-direction: column;">
-                        <div >反馈内容</div>
-                        <textarea  cols="30" rows="10" placeholder="请输入反馈内容" v-model.trim="content"></textarea>
-                    </div>
-
-                    <button class="submit" @click="submitfan">
-                        提交反馈
-                    </button>
-                   
+            <div id="posi1" ></div>
+            <div class="bg">
+                 <div class="title1">
+                     * 请认真填写以下信息
+                 </div>
+                <div class="line">
+                    <span>姓名</span>
+                    <input type="text" placeholder="请输入本人姓名" v-model.trim="uname">
                 </div>
-                <div style="width:100vw;height:0vh;"></div>
-            </van-tab>
-        </van-tabs>
+                <div class="line">
+                    <span>手机号</span>
+                    <input type="text" @blur="inputBlur" placeholder="请输入本人手机号" v-model.trim="phone">
+                </div>
+                <div class="line">
+                    <span>微信号</span>
+                    <input type="text" @blur="inputBlur" placeholder="请输入本人微信号" v-model.trim="weixin">
+                </div>
+                <div class="line" style="flex-direction: column;">
+                    <div >反馈内容</div>
+                    <textarea  cols="30" rows="10" @blur="inputBlur" placeholder="请输入反馈内容" v-model.trim="content"></textarea>
+                </div>
+
+                <button class="submit" @click="submitfan">
+                    提交反馈
+                </button>
+            </div>
+                   
+              
 
 
         <!-- 评价弹出 -->
@@ -187,7 +183,8 @@ export default {
             eTime:"",
             isPlay:false,
             content1:"",
-            show:false
+            show:false,
+            listShow:false
         }
     },
     inject: ['reload'],
@@ -265,6 +262,13 @@ export default {
         },
         hideComment(){
             this.commentShow=false
+        },
+        inputBlur () {
+            if(document.documentElement.scrollTop){
+                console.log(document.documentElement.scrollTop=document.getElementById('posi1').offsetTop)
+            }else{
+                console.log(document.body.scrollTop=document.getElementById('posi1').offsetTop)
+            }
         },
         submitComment(){
             let that=this
@@ -359,11 +363,49 @@ export default {
                 console.log(res)
                 if(res.code===200){
                     that.content1=res.data
+                    if(res.data.list.length<7){
+                        that.listShow=true;
+                    }
                     setTimeout(()=>{
                         that.show=true
                     },500)
                 }
             })
+        },
+        handleScroll(){
+            let that=this
+            let a = document.documentElement.scrollTop || document.body.scrollTop;
+            
+            that.$nextTick(()=>{
+                let top1=a-document.getElementById('posi1').offsetTop;
+                if(top1>-70){
+                    for(let item in that.$refs){
+                        that.$refs[item].style['borderBottom']="0";
+                    }
+                     that.$refs.xiangmu2.style['borderBottom']="3px solid rgb(255, 225, 129)";
+                }else{
+                    for(let item in that.$refs){
+                        that.$refs[item].style['borderBottom']="0";
+                    }
+                    that.$refs.xiangmu1.style['borderBottom']="3px solid rgb(255, 225, 129)";
+                }
+            })
+             that.$(that.$refs.xiangmu1).bind('click',function (){
+                    if(document.documentElement.scrollTop){
+                        console.log(document.documentElement.scrollTop=document.getElementById('posi').offsetTop-50)
+                    }else{
+                        console.log(document.body.scrollTop=document.getElementById('posi').offsetTop-50)
+                    } 
+                })
+            that.$(that.$refs.xiangmu2).bind('click',function (){
+                    if(document.documentElement.scrollTop){
+                        console.log(document.documentElement.scrollTop=document.getElementById('posi1').offsetTop)
+                    }else{
+                        console.log(document.body.scrollTop=document.getElementById('posi1').offsetTop)
+                    }
+                })
+
+
         }
     },
     created () {
@@ -371,8 +413,8 @@ export default {
     },
     mounted(){
         // this.setScroll()
-        console.log(this.$route.query.cid)
-       
+        //console.log(this.$route.query.cid)
+        window.addEventListener('scroll', this.handleScroll)
     }
 
 }
@@ -430,8 +472,8 @@ export default {
     border-bottom: 1px solid #ccc;
     padding-bottom:1rem; 
 }
-.wrap:first-child{
-     margin: 0rem auto 1rem;
+.wrap:last-of-type{
+   border-bottom: 0;
 }
 .wrap img{
     width: 2rem;
@@ -625,7 +667,7 @@ export default {
 .bg{
     width: 96vw;
     margin: 0 auto;
-    height: 92vh;
+    height: 39rem;
     background: url('../assets/center/qbg.png') no-repeat;
     background-size: 100% 100%;
     padding: 0 0 4rem 0;
