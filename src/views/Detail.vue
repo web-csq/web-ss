@@ -77,17 +77,6 @@
                         <img src="@/assets/center/dao.png" alt="" class="dao">
                     </div>
                     <div style="width:100vw;height:5rem;"></div>
-                    
-              
-
-
-
-                
-
-            
-      
-
-
 
         
         <div class="bottom-div">
@@ -300,10 +289,10 @@ export default {
             })
         },
         aliPay(){
-            // let money=this.info.price
-            // let str=`?uid=${window.localStorage.uid}&price=${money}&type=Alipay`
+            let money=this.info.price
+            let str=`?uid=${window.localStorage.uid}&price=${money}&type=Alipay`
 
-            // window.location.href='http://www.shanshangdajiazu.com/pay/index.html'+str
+            window.location.href='http://www.shanshangdajiazu.com/pay/index.html'+str
         }
     },
     created() {

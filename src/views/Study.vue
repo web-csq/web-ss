@@ -378,6 +378,7 @@ export default {
             
             that.$nextTick(()=>{
                 let top1=a-document.getElementById('posi1').offsetTop;
+                console.log(top1)
                 if(top1>-70){
                     for(let item in that.$refs){
                         that.$refs[item].style['borderBottom']="0";
@@ -658,15 +659,17 @@ export default {
     width: 96vw !important;
     display: block !important;
     margin: 1rem auto;
+     border-radius: 20px;
 }
 .cont >>> audio{
     width: 83vw !important;
     display: block !important;
     margin: 1rem auto !important;
+    border-radius: 20px;
 }
 .bg{
     width: 96vw;
-    margin: 0 auto;
+    margin: 0 auto 3rem;
     height: 39rem;
     background: url('../assets/center/qbg.png') no-repeat;
     background-size: 100% 100%;

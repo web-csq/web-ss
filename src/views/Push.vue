@@ -190,9 +190,7 @@ export default {
     align-self: flex-end;
 }
 
-
 .box-index:last-child{
     margin-bottom: 2rem;
 }
-
 </style>

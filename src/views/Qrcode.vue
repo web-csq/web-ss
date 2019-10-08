@@ -1,10 +1,10 @@
 <template>
     <div v-if="page" >
     <div class="container" ref="imageDom">
-        <table></table>
-        <div style="float: right;margin:27.7rem 1.5rem 0 0rem;">
+       
+        
             <img v-lazy="'http://www.shanshangdajiazu.com'+qrcode" alt="" class="img">
-        </div>
+       
     </div>
      <button class="btn" @click="showPop">
             邀请方式
@@ -140,13 +140,7 @@ export default {
 
 <style scoped>
 .container{
-    position: relative;
-    top: 0;
-    left: 0;
-    background: url('../assets/center/saoma.png') no-repeat;
-    background-size: 100% 100%;
     width:96vw ;
-    height: 35rem;
     
     margin: .5rem auto 0;
  } 
@@ -222,7 +216,8 @@ export default {
 
 
 .img{
-    width: 6rem;
+    width: 100%;
+    border-radius:8px;
 
     
     

@@ -357,10 +357,34 @@ export default {
   },
   methods: {
     showPopup(type,cid=-1){
+
+
+
       this.middleShow=false;
-      this.show=true;
+      
       this.cid=cid
       this.type=type;
+
+     
+
+       if(this.type===1){
+         if(this.level==1){
+          this.$toast.success('您已经是会员了');
+          return;
+        }
+       
+      }else if(this.type===2){
+        if(this.level==2){
+          this.$toast.success('您已经是会员了');
+          return;
+        }
+       
+      }
+      this.show=true;
+
+
+
+
 
       // var that=this
       
@@ -502,27 +526,27 @@ export default {
     },
     Alipay(){
       
-      // let money,cid,str;
+      let money,cid,str;
 
-      //  if(this.type===1){
-      //    if(this.level==1){
-      //     this.$toast.success('您已经是会员了');
-      //     return;
-      //   }
-      //   money=this.money1;
-      //   cid=this.cid
-      //   str=`?uid=${window.localStorage.uid}&cid=${cid}&price=${money}&type=Alipay`
-      // }else if(this.type===2){
-      //   if(this.level==2){
-      //     this.$toast.success('您已经是会员了');
-      //     return;
-      //   }
-      //   money=this.money2;
+       if(this.type===1){
+         if(this.level==1){
+          this.$toast.success('您已经是会员了');
+          return;
+        }
+        money=this.money1;
+        cid=this.cid
+        str=`?uid=${window.localStorage.uid}&cid=${cid}&price=${money}&type=Alipay`
+      }else if(this.type===2){
+        if(this.level==2){
+          this.$toast.success('您已经是会员了');
+          return;
+        }
+        money=this.money2;
 
-      //   str=`?uid=${window.localStorage.uid}&price=${money}&type=Alipay`
-      // }
+        str=`?uid=${window.localStorage.uid}&price=${money}&type=Alipay`
+      }
       
-      // window.location.href='http://www.shanshangdajiazu.com/pay/index.html'+str
+      window.location.href='http://www.shanshangdajiazu.com/pay/index.html'+str
 
 
     },

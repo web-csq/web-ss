@@ -115,7 +115,7 @@ export default {
     color:#FF3535;
     line-height:61px;
     text-align: left;
-    width: 56vw;
+    padding:0 0 0 2rem;
     margin: 0 auto;
     white-space: nowrap;
 }
@@ -126,8 +126,8 @@ export default {
     color:#D3963A;
     line-height:7px;
     text-align: left;
-    width: 57vw;
     margin: 0 auto;
+    padding:0 0 0 2rem;
     white-space: nowrap;
 }
 .box{
