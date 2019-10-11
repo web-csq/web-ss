@@ -47,7 +47,7 @@
 <script>
   import Clipboard from 'clipboard';
   import wx from 'weixin-js-sdk';
-  import html2canvas from "html2canvas"
+  import html2canvas from "html2canvas";
 export default {
     data(){
         return{
@@ -91,7 +91,7 @@ export default {
                     // that.load.close()
                 },1000)
             })
-            that.text="http://www.shanshangdajiazu.com/ss/#/qrcode?uid="+uid
+            that.text="www.shanshangdajiazu.com/ss/#/index1?uid="+window.btoa (+uid);
         },
         share(){
             let that=this;

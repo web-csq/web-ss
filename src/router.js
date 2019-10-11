@@ -38,6 +38,15 @@ export default new Router({
       component: () => import('./views/Index')
     },
     {
+      path: '/index1',
+      name: 'index1',
+      meta:{
+        keepAlive:true,
+        title:"分享"
+      },
+      component: () => import('./views/Index1')
+    },
+    {
       path: '/articledetail/:id',
       name: 'articledetail',
       meta:{
@@ -135,6 +144,15 @@ export default new Router({
         title:"提现"
       },
       component: () => import('./views/Withdraw.vue')
+    },
+    {
+      path: '/withdrawdetail',
+      name: 'withdrawdetail',
+      meta:{
+        keepAlive:false,
+        title:"账户明细"
+      },
+      component: () => import('./views/WithdrawDetail.vue')
     },
     {
       path: '/message',

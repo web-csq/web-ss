@@ -6,9 +6,6 @@
 
         <div class="cont" v-html="content1.content"></div>
 
-
-
-
         <img src="@/assets/index/edit.png" class="fixed" @click="showComment">
        <!--  <img src="@/assets/index/teacher.png" style="width:100vw;display:block;margin:0 auto">
         <audio :src="require('./../../public/music.mp3')" ref="audio" class="audio" preload="auto"></audio>
@@ -110,7 +107,7 @@
                 </div> -->
            
 
-            <div id="posi1" ></div>
+            <div id="posi1" style="height:3rem;"></div>
             <div class="bg">
                  <div class="title1">
                      * 请认真填写以下信息
@@ -392,20 +389,18 @@ export default {
                 }
             })
              that.$(that.$refs.xiangmu1).bind('click',function (){
-                    if(document.documentElement.scrollTop){
-                        console.log(document.documentElement.scrollTop=document.getElementById('posi').offsetTop-50)
-                    }else{
-                        console.log(document.body.scrollTop=document.getElementById('posi').offsetTop-50)
-                    } 
+                    
+                document.documentElement.scrollTop=document.getElementById('posi').offsetTop-50
+                document.body.scrollTop=document.getElementById('posi').offsetTop-50
+                        
+                    
                 })
             that.$(that.$refs.xiangmu2).bind('click',function (){
-                    if(document.documentElement.scrollTop){
-                        console.log(document.documentElement.scrollTop=document.getElementById('posi1').offsetTop)
-                    }else{
-                        console.log(document.body.scrollTop=document.getElementById('posi1').offsetTop)
-                    }
-                })
-
+                    
+                document.documentElement.scrollTop=document.getElementById('posi1').offsetTop
+                document.body.scrollTop=document.getElementById('posi1').offsetTop
+                  
+             })
 
         }
     },

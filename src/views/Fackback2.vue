@@ -44,10 +44,15 @@ export default {
 <style scoped>
 
  .box-index >>> img{
-    width: 80vw !important;
+    width: 10rem !important;
+    height: 10rem !important;
+    
     display: block !important;
     margin: 1rem auto !important;
 }
+ .box-index >>> p span{
+     font-size: 1rem;
+ }
 .box-index >>> video{
     width: 96vw !important;
     display: block !important;

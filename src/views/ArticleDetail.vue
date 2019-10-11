@@ -11,6 +11,10 @@
         <div class="cont" v-html="detail.content">
             
         </div>
+        <div style="width:90vw;margin:0 auto;" @click="jumpIndex">
+            <img src="../assets/index/gif.gif" alt="" style="width:100%;">
+        </div>
+
     </div>
 </template>
 
@@ -34,6 +38,9 @@ export default {
                 //     that.load.close()
                 // },500)
             })
+        },
+        jumpIndex(){
+            this.$router.push('/index')
         }
     },
     created() {

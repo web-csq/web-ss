@@ -122,7 +122,7 @@ export default {
             if(!that.info.order){
                  this.$dialog.alert({
                     title: '提示',
-                    message: '暂无订单'
+                    message: '暂无推广订单'
                 });
                     return;
             }

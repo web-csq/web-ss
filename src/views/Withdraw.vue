@@ -33,7 +33,9 @@
             </div>
         </div>
         
-
+        <div style="text-align:center;margin:1rem 0 0 0;color:#ccc;" @click="jumpWithDetail">
+            <span style="color:#D3963A">账户明细</span>   ＞
+        </div>
         <button class="con-btn" @click="submit">提交申请</button>
     </div>
 
@@ -92,6 +94,9 @@ export default {
         getMoney(){
             this.txmoney=this.$route.query.money
             console.log(this.txmoney)
+        },
+        jumpWithDetail(){
+            this.$router.push('/withdrawdetail')
         }
     },
     created(){
@@ -172,7 +177,7 @@ export default {
     width: 70vw;
     height: 2.8rem;
     display: block;
-    margin: 25px auto 20px;
+    margin: 5px auto 20px;
     border:0;
     background: url('../assets/center/btn222.png') no-repeat;
     background-size: 100%;

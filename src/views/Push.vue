@@ -1,13 +1,13 @@
 <template>
     <div>
         <h2 class="title">推广员等级</h2>
-        <div class="box-index" style="width:90vw;" v-for="(item,index) in level" :key="index">
+        <div class="box-index" style="width:90vw;">
             <div style="display:flex;align-items:center">
                 <img src="@/assets/center/laba.png" alt="" class="laba">
-                <span class="level">{{item.level_name}}</span>
+                <span class="level">{{level.level_name}}</span>
             </div>
             <div class="push">
-                直接推广佣金比例：{{item.direct}}%，间接推广比例：{{item.indirect}}%
+                直接推广佣金比例：{{level.direct}}%，间接推广比例：{{level.indirect}}%
             </div>
             <div class="bottom">
                 用户成为推广员时，默认是该等级
@@ -23,7 +23,9 @@
             <div style="width:54vw;display:flex;justify-content:space-between;">
                 <div>
                     <div class="text1">{{item.c_name}}</div>
-                    <div class="text2">{{item.l_id==1?"课程：":"整套价格："}}{{item.money}}</div>
+                    <div class="text2">{{item.l_id==1?"体验课程：":"体魄训练体系："}}{{parseInt(item.money)}}</div>
+                    <div class="text3">直接推广佣金：<span style="color:#FF494A">￥{{item.direct}}</span> </div>
+                    <div class="text4">间接推广佣金：<span style="color:#FF494A">￥{{item.indirect}}</span> </div>
                 </div>
                 <div class="text5" @click="jumpQrcode">推广</div>
             </div>
@@ -147,7 +149,7 @@ export default {
 }
 .ava{
     width: 7rem;
-    height: 5rem;
+    height: 5.5rem;
     border-radius: 8px;
 }
 .text1{
@@ -158,21 +160,20 @@ export default {
     
 }
 .text2{
-    font-size:.9rem;
+    font-size:.8rem;
     font-family:SourceHanSansCN-Regular;
     font-weight:400;
     color:rgba(157,157,157,1);
-    margin: 1rem 0 0 0;
 }
 .text3{
-    margin-top: .5rem;
-    font-size:.6rem;
+    margin-top:.5rem;
+    font-size:.7rem;
     font-family:SourceHanSansCN-Regular;
     font-weight:400;
     color:rgba(157,157,157,1);
 }
 .text4{
-    font-size:.6rem;
+    font-size:.7rem;
     font-family:SourceHanSansCN-Regular;
     font-weight:400;
     color:rgba(157,157,157,1);

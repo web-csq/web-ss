@@ -39,9 +39,7 @@
       </div>
     </div>
 
-    <div style="font-size:1.1rem;font-family:SourceHanSansCN-Regular;font-weight:400;color:rgba(255,73,74,1);padding-left:1rem">
-      ￥{{money1}}
-    </div>
+    
 
 
     <h2 class="title">{{sort2.title}}</h2>
@@ -56,14 +54,17 @@
     </div>
    
     <div class="bottom">
-      提升魅力，重新定义品质生活
+      扫码加入我们，一起遇见魅力自己！
     </div>
-    <div style="width:100vw;height:3rem;"></div>
+    <div style="width:100vw;height:1rem;"></div>
 
-    <div class="bottom-div">
+    <!-- <div class="bottom-div">
       <button class="bottom-btn" @click="showPopup(2)">
       ￥{{parseInt(money2)}}元立即开通
       </button>
+    </div> -->
+    <div class="qrcode">
+        <img v-lazy="'http://www.shanshangdajiazu.com'+qrcode" style="width:100%;height:100%">
     </div>
 
 
@@ -351,201 +352,42 @@ export default {
       level:-1,
       load:"",
       cid:-1,
+      qrcode:"",
       personList:[]
     }
   },
   methods: {
     showPopup(type,cid=-1){
 
-
-
-      this.middleShow=false;
-      
-      this.cid=cid
-      this.type=type;
-
-     
-
-       if(this.type===1){
-         if(this.level==1){
-          this.$toast.success('您已经是会员了');
-          return;
-        }
-       
-      }else if(this.type===2){
-        if(this.level==2){
-          this.$toast.success('您已经是会员了');
-          return;
-        }
-       
-      }
-      this.show=true;
-
-
-
-
-
-      // var that=this
-      
-      // var loading=that.$loading();
-      // setTimeout(() => {
-      //   loading.close();
-      // }, 2000)
     },
     hide(){
-      this.show=false;
-      this.middleShow=false;
-      this.anwserShow=false
+     
     },
     showMiddle(){
-      this.middleShow=true
+     
     },
     pay(){
-      this.middleShow=false
-      this.show=true
+      
     },
     showAnswer(){
-      this.anwserShow=true
+     
     },
     jumpStudy(cid){
-      this.$router.push('/study?cid='+cid)
+      
     },
     next(){
-      var that=this
-
-      if(that.number==1){
-        // console.log("第一题")
-        if(that.radio1!=3){
-          // console.log("大错了")
-          if(that.anshow1==false){
-            that.anshow1=true;
-            // console.log("显示答案")
-            return;
-          }else{
-            this.number=2
-            return;
-          }
-        }else{
-          this.number=2
-          return
-        }
-      }
-      if(that.number==2){
-        if(that.radio2!=4){
-          if(that.anshow2==false){
-            that.anshow2=true;
-            return;
-          }else{
-            this.number=3
-            return;
-          }
-        }else{
-          this.number=3
-          return;
-        }
-      }
-      if(that.number==3){
-        if(that.radio3!=2){
-          if(that.anshow3==false){
-            that.anshow3=true;
-            return;
-          }else{
-            this.number=4
-            return;
-          }
-        }else{
-          this.number=4
-          return;
-        }
-      }
-      if(that.number==4){
-        if(that.radio4!=2){
-          if(that.anshow4==false){
-            that.anshow4=true;
-            return;
-          }else{
-            that.number=5
-          }
-        }else{
-          that.number=5
-        }
-      }
-      if(that.number==5){
-        that.anwserShow=false;
-        that.number=1;
-        that.anshow1=false;
-        that.anshow2=false;
-        that.anshow3=false;
-        that.anshow4=false;
-        that.$router.push('/fackback2?cid='+that.sort3.id)
-      }
+      
  
     },
     wxPay(){
       
-      let that=this;
-      let money;
-
-      let data={
-        uid:window.localStorage.uid,
-        cid:19,
-        price:-1,
-        type:"WeChat"
-      }
-      if(that.cid>-1){
-        data.cid=that.cid
-      }else{
-        data.cid=""
-      }
-      console.log(that.type)
-      //普通成员
-      if(that.type===1){
-        data.price=that.money1;
-        data.cid=that.cid
-        if(this.level==1){
-          this.$toast.success('您已经是会员了');
-          return;
-        }
-      }else if(that.type===2){
-        data.price=that.money2;
-        delete data.cid
-        if(this.level==2){
-          this.$toast.success('您已经是会员了');
-          return;
-        }
-      }
-      console.log(data)
-      
-      that.$pay('/buy_courses',data,that).then(()=>{
-        that.$router.push('/paysuccess')
-      })
 
 
 
     },
     Alipay(){
       
-      let money,cid,str;
-
-       if(this.type===1){
-         if(this.level==1){
-          this.$toast.success('您已经是会员了');
-          return;
-        }
-        money=this.money1;
-        cid=this.cid
-        str=`?uid=${window.localStorage.uid}&cid=${cid}&price=${money}&type=Alipay`
-      }else if(this.type===2){
-        if(this.level==2){
-          this.$toast.success('您已经是会员了');
-          return;
-        }
-        money=this.money2;
-
-        str=`?uid=${window.localStorage.uid}&price=${money}&type=Alipay`
-      }
-      
-      window.location.href='http://www.shanshangdajiazu.com/pay/index.html'+str
+     
 
 
     },
@@ -614,15 +456,24 @@ export default {
         that.list.sort(()=>0.5-Math.random())
       })
 
+    },
+    getQrcode(){
+      let that=this;
+      let uid=that.$route.query.uid
+      uid= window.atob (uid)
+      console.log(uid)
+      that.$post('/createCode',{uid}).then(res=>{
+        that.qrcode=res.data
+      })
     }
     
  
   },
   created () {
-    this.$config()
     // this.load=this.$loading()
     this.getShowList();
     this.getData();
+    this.getQrcode();
     
     
   },
@@ -912,7 +763,13 @@ export default {
 .index >>> .mu-ripple-wrapper{
     height: 100%!important;
 }
-
+.qrcode{
+  width: 12rem;
+  height: 12rem;
+  padding: 1rem;
+  margin: 0rem auto 2rem;
+  box-shadow: 0 0 2px 1px #9EC54B;
+}
 
 
 
